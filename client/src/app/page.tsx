@@ -365,11 +365,11 @@ export default function Home() {
                   <div className="flex items-center justify-between mt-auto">
                     <div className="flex flex-col">
                       <span className="text-3xl font-black bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent">
-                        ${product.price.toFixed(2)}
+                        ₹{product.price.toFixed(2)}
                       </span>
                       {product.compare_at_price && (
                         <span className="text-gray-400 line-through text-sm font-medium">
-                          ${product.compare_at_price.toFixed(2)}
+                          ₹{product.compare_at_price.toFixed(2)}
                         </span>
                       )}
                     </div>

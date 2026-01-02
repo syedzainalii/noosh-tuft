@@ -191,35 +191,12 @@ export default function AdminCategoriesPage() {
                   />
                 </div>
                 
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">
-                    Image URL <span className="text-gray-400 font-normal text-xs">(optional)</span>
-                  </label>
-                  <input
-                    type="url"
-                    placeholder="https://example.com/image.jpg"
-                    className="input-field"
-                    value={formData.image_url}
-                    onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                  />
-                  <p className="text-xs text-gray-500 mt-2">💡 Tip: Add a beautiful photo showcasing this craft category</p>
-                </div>
-
-                {formData.image_url && (
-                  <div className="border-2 border-primary-100 rounded-2xl p-4 bg-primary-50/30">
-                    <p className="text-sm font-medium text-gray-700 mb-2">Image Preview:</p>
-                    <div className="relative h-48 bg-gradient-to-br from-primary-50 to-secondary-50 rounded-xl overflow-hidden">
-                      <img
-                        src={formData.image_url}
-                        alt="Preview"
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).style.display = 'none';
-                        }}
-                      />
-                    </div>
-                  </div>
-                )}
+                <ImageUpload
+                  value={formData.image_url}
+                  onChange={(url) => setFormData({ ...formData, image_url: url })}
+                  label="Category Image"
+                  required={false}
+                />
                 
                 <div className="flex space-x-4 pt-4">
                   <button type="submit" className="btn-primary flex-1">

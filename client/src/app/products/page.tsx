@@ -49,8 +49,8 @@ export default function ProductsPage() {
     setIsLoading(true);
     try {
       let url = '/api/products?limit=50';
-      if (searchQuery) url += `&search=${searchQuery}`;
-      if (selectedCategory) url += `&category_id=${selectedCategory}`;
+      if (searchQuery) url += `&search=₹{searchQuery}`;
+      if (selectedCategory) url += `&category_id=₹{selectedCategory}`;
       
       const response = await api.get(url);
       setProducts(response.data);
@@ -99,7 +99,7 @@ export default function ProductsPage() {
                 setSelectedCategory(null);
                 window.history.pushState({}, '', '/products');
               }}
-              className={`px-6 py-3 rounded-full font-bold transition-all duration-300 ${
+              className={`px-6 py-3 rounded-full font-bold transition-all duration-300 ₹{
                 selectedCategory === null
                   ? 'bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white shadow-glow scale-110'
                   : 'bg-white/90 backdrop-blur-sm text-gray-700 border-2 border-primary-100 hover:border-primary-300 hover:scale-105'
@@ -112,9 +112,9 @@ export default function ProductsPage() {
                 key={category.id}
                 onClick={() => {
                   setSelectedCategory(category.id);
-                  window.history.pushState({}, '', `/products?category=${category.slug}`);
+                  window.history.pushState({}, '', `/products?category=₹{category.slug}`);
                 }}
-                className={`px-6 py-3 rounded-full font-bold transition-all duration-300 ${
+                className={`px-6 py-3 rounded-full font-bold transition-all duration-300 ₹{
                   selectedCategory === category.id
                     ? 'bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white shadow-glow scale-110'
                     : 'bg-white/90 backdrop-blur-sm text-gray-700 border-2 border-primary-100 hover:border-primary-300 hover:scale-105'
@@ -141,7 +141,7 @@ export default function ProductsPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {products.map((product) => (
-              <Link key={product.id} href={`/products/${product.slug}`} className="group">
+              <Link key={product.id} href={`/products/₹{product.slug}`} className="group">
                 <div className="card hover:shadow-glow cursor-pointer h-full flex flex-col overflow-hidden">
                   <div className="relative h-56 mb-4 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl overflow-hidden">
                     {product.image_url ? (
@@ -176,16 +176,16 @@ export default function ProductsPage() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-baseline space-x-2">
                       <span className="text-xl font-bold bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent">
-                        ${product.price.toFixed(2)}
+                        ₹{product.price.toFixed(2)}
                       </span>
                       {product.compare_at_price && (
                         <span className="text-gray-400 line-through text-xs">
-                          ${product.compare_at_price.toFixed(2)}
+                          ₹{product.compare_at_price.toFixed(2)}
                         </span>
                       )}
                     </div>
                     <div className="text-xs text-gray-500">
-                      {product.stock_quantity > 0 ? `${product.stock_quantity} in stock` : ''}
+                      {product.stock_quantity > 0 ? `₹{product.stock_quantity} in stock` : ''}
                     </div>
                   </div>
                 </div>

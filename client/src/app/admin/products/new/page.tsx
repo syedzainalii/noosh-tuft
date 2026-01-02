@@ -6,6 +6,7 @@ import { useAuthStore } from '@/store/authStore';
 import api from '@/lib/api';
 import { Category } from '@/types';
 import toast from 'react-hot-toast';
+import ImageUpload from '@/components/ImageUpload';
 
 export default function NewProductPage() {
   const router = useRouter();
@@ -217,15 +218,11 @@ export default function NewProductPage() {
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Image URL
-              </label>
-              <input
-                type="url"
-                className="input-field"
+              <ImageUpload
                 value={formData.image_url}
-                onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                placeholder="https://example.com/image.jpg"
+                onChange={(url) => setFormData({ ...formData, image_url: url })}
+                label="Product Image"
+                required={false}
               />
             </div>
 

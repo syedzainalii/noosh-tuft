@@ -57,7 +57,7 @@ export default function CheckoutPage() {
       const response = await api.post('/api/orders', orderData);
       toast.success('Order placed successfully!');
       await clearCart();
-      router.push(`/orders/${response.data.id}`);
+      router.push(`/orders/₹{response.data.id}`);
     } catch (error: any) {
       toast.error(error.response?.data?.detail || 'Failed to place order');
     } finally {
@@ -203,7 +203,7 @@ export default function CheckoutPage() {
                       {item.product.name} x {item.quantity}
                     </span>
                     <span className="font-semibold">
-                      ${(item.product.price * item.quantity).toFixed(2)}
+                      ₹{(item.product.price * item.quantity).toFixed(2)}
                     </span>
                   </div>
                 ))}
@@ -211,7 +211,7 @@ export default function CheckoutPage() {
               <div className="border-t pt-4 space-y-2">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Subtotal</span>
-                  <span className="font-semibold">${getTotal().toFixed(2)}</span>
+                  <span className="font-semibold">₹{getTotal().toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Shipping</span>
@@ -221,7 +221,7 @@ export default function CheckoutPage() {
                   <div className="flex justify-between">
                     <span className="text-lg font-bold">Total</span>
                     <span className="text-lg font-bold text-primary-600">
-                      ${getTotal().toFixed(2)}
+                      ₹{getTotal().toFixed(2)}
                     </span>
                   </div>
                 </div>

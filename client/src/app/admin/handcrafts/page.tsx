@@ -6,6 +6,7 @@ import { useAuthStore } from '@/store/authStore';
 import api from '@/lib/api';
 import { PlusIcon, TrashIcon, PencilIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import ImageUpload from '@/components/ImageUpload';
 
 interface HandcraftPhoto {
   id: number;
@@ -245,18 +246,12 @@ export default function AdminHandcraftsPage() {
                   />
                 </div>
                 
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Image URL *</label>
-                  <input
-                    type="url"
-                    required
-                    placeholder="https://example.com/image.jpg"
-                    className="input-field"
-                    value={formData.image_url}
-                    onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                  />
-                  <p className="text-xs text-gray-500 mt-2">💡 Tip: Upload your photo to an image host and paste the URL here</p>
-                </div>
+                <ImageUpload
+                  value={formData.image_url}
+                  onChange={(url) => setFormData({ ...formData, image_url: url })}
+                  label="Process Photo"
+                  required={true}
+                />
 
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-2">
@@ -270,23 +265,6 @@ export default function AdminHandcraftsPage() {
                     onChange={(e) => setFormData({ ...formData, order_index: parseInt(e.target.value) || 0 })}
                   />
                 </div>
-
-                {formData.image_url && (
-                  <div className="border-2 border-primary-100 rounded-2xl p-4 bg-primary-50/30">
-                    <p className="text-sm font-medium text-gray-700 mb-2">Image Preview:</p>
-                    <div className="relative h-80 bg-gradient-to-br from-primary-50 to-secondary-50 rounded-xl overflow-hidden">
-                      <Image
-                        src={formData.image_url}
-                        alt="Preview"
-                        fill
-                        className="object-cover"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).style.display = 'none';
-                        }}
-                      />
-                    </div>
-                  </div>
-                )}
                 
                 <div className="flex space-x-4 pt-4">
                   <button type="submit" className="btn-primary flex-1">
