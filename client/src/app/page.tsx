@@ -180,8 +180,8 @@ export default function Home() {
             <div className="inline-block mb-4">
               <span className="text-5xl">🧵</span>
             </div>
-            <h2 className="section-title">Handcrafted with Love</h2>
-            <p className="section-subtitle">Watch our artisanal process come to life</p>
+            <h2 className="section-title">Welcome to Noosh Tufts</h2>
+            <p className="section-subtitle">Tufted Designs Handcrafted with Love</p>
           </div>
 
           {/* Polaroid Cards Carousel */}
