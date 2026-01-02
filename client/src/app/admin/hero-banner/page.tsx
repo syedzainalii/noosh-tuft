@@ -12,10 +12,6 @@ interface HeroBanner {
   title: string | null;
   subtitle: string | null;
   image_url: string;
-  button1_text: string | null;
-  button1_url: string | null;
-  button2_text: string | null;
-  button2_url: string | null;
   is_active: boolean;
   created_at: string;
   updated_at: string | null;
@@ -31,10 +27,6 @@ export default function HeroBannerManagement() {
     title: '',
     subtitle: '',
     image_url: '',
-    button1_text: '',
-    button1_url: '',
-    button2_text: '',
-    button2_url: '',
     is_active: true,
   });
   const [editingId, setEditingId] = useState<number | null>(null);
@@ -79,7 +71,7 @@ export default function HeroBannerManagement() {
         await api.post('/api/hero-banners', formData);
       }
       
-      setFormData({ title: '', subtitle: '', image_url: '', button1_text: '', button1_url: '', button2_text: '', button2_url: '', is_active: true });
+      setFormData({ title: '', subtitle: '', image_url: '', is_active: true });
       setEditingId(null);
       setShowForm(false);
       await fetchBanners();
@@ -96,10 +88,6 @@ export default function HeroBannerManagement() {
       title: banner.title || '',
       subtitle: banner.subtitle || '',
       image_url: banner.image_url,
-      button1_text: banner.button1_text || '',
-      button1_url: banner.button1_url || '',
-      button2_text: banner.button2_text || '',
-      button2_url: banner.button2_url || '',
       is_active: banner.is_active,
     });
     setEditingId(banner.id);
@@ -129,7 +117,7 @@ export default function HeroBannerManagement() {
   };
 
   const cancelEdit = () => {
-    setFormData({ title: '', subtitle: '', image_url: '', button1_text: '', button1_url: '', button2_text: '', button2_url: '', is_active: true });
+    setFormData({ title: '', subtitle: '', image_url: '', is_active: true });
     setEditingId(null);
     setShowForm(false);
   };
@@ -201,74 +189,6 @@ export default function HeroBannerManagement() {
                 label="Hero Banner Image"
                 required
               />
-
-              {/* Button 1 */}
-              <div className="border-2 border-primary-100 rounded-2xl p-6 bg-gradient-to-br from-primary-50/30 to-secondary-50/30">
-                <h3 className="text-lg font-bold text-gray-900 mb-4">🔘 Button 1 (Optional)</h3>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-bold text-gray-700 mb-2">
-                      Button Text
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.button1_text}
-                      onChange={(e) => setFormData({ ...formData, button1_text: e.target.value })}
-                      className="input-field"
-                      placeholder="Shop Now"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-bold text-gray-700 mb-2">
-                      Button URL
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.button1_url}
-                      onChange={(e) => setFormData({ ...formData, button1_url: e.target.value })}
-                      className="input-field"
-                      placeholder="/products"
-                    />
-                    <p className="text-xs text-gray-500 mt-1">
-                      💡 Use relative URLs like /products or /categories
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Button 2 */}
-              <div className="border-2 border-secondary-100 rounded-2xl p-6 bg-gradient-to-br from-secondary-50/30 to-accent-50/30">
-                <h3 className="text-lg font-bold text-gray-900 mb-4">🔘 Button 2 (Optional)</h3>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-bold text-gray-700 mb-2">
-                      Button Text
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.button2_text}
-                      onChange={(e) => setFormData({ ...formData, button2_text: e.target.value })}
-                      className="input-field"
-                      placeholder="View Gallery"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-bold text-gray-700 mb-2">
-                      Button URL
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.button2_url}
-                      onChange={(e) => setFormData({ ...formData, button2_url: e.target.value })}
-                      className="input-field"
-                      placeholder="/handcrafts"
-                    />
-                    <p className="text-xs text-gray-500 mt-1">
-                      💡 Use relative URLs like /handcrafts or external URLs like https://example.com
-                    </p>
-                  </div>
-                </div>
-              </div>
 
               <div className="flex items-center">
                 <input

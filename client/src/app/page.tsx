@@ -100,32 +100,6 @@ export default function Home() {
           }`}>
             {heroBanner?.subtitle || ''}
           </p>
-          {/* Custom Buttons - Only show if configured by admin */}
-          {(heroBanner?.button1_text && heroBanner?.button1_url) || (heroBanner?.button2_text && heroBanner?.button2_url) ? (
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              {/* Button 1 - Primary */}
-              {heroBanner?.button1_text && heroBanner?.button1_url && (
-                <Link
-                  href={heroBanner.button1_url}
-                  className="px-8 py-4 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white rounded-full font-semibold text-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-flex items-center justify-center"
-                >
-                  {heroBanner.button1_text}
-                  <ArrowRightIcon className="ml-2 h-5 w-5" />
-                </Link>
-              )}
-              
-              {/* Button 2 - Secondary */}
-              {heroBanner?.button2_text && heroBanner?.button2_url && (
-                <Link
-                  href={heroBanner.button2_url}
-                  className="px-8 py-4 bg-white/80 backdrop-blur-sm text-gray-800 rounded-full font-semibold text-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border-2 border-gray-200 inline-flex items-center justify-center"
-                >
-                  {heroBanner.button2_text}
-                  <HeartIcon className="ml-2 h-5 w-5" />
-                </Link>
-              )}
-            </div>
-          ) : null}
         </div>
       </div>
 

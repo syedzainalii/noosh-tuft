@@ -212,10 +212,6 @@ class HeroBannerBase(BaseModel):
     title: Optional[str] = None
     subtitle: Optional[str] = None
     image_url: str
-    button1_text: Optional[str] = None
-    button1_url: Optional[str] = None
-    button2_text: Optional[str] = None
-    button2_url: Optional[str] = None
     is_active: bool = True
 
 
@@ -227,10 +223,6 @@ class HeroBannerUpdate(BaseModel):
     title: Optional[str] = None
     subtitle: Optional[str] = None
     image_url: Optional[str] = None
-    button1_text: Optional[str] = None
-    button1_url: Optional[str] = None
-    button2_text: Optional[str] = None
-    button2_url: Optional[str] = None
     is_active: Optional[bool] = None
 
 
