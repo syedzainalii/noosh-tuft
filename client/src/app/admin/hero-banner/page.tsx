@@ -79,7 +79,7 @@ export default function HeroBannerManagement() {
         await api.post('/api/hero-banners', formData);
       }
       
-      setFormData({ title: '', subtitle: '', image_url: '', is_active: true });
+      setFormData({ title: '', subtitle: '', image_url: '', button1_text: '', button1_url: '', button2_text: '', button2_url: '', is_active: true });
       setEditingId(null);
       setShowForm(false);
       await fetchBanners();
