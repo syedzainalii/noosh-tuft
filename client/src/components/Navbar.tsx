@@ -79,10 +79,28 @@ export default function Navbar() {
             {/* Desktop Navigation */}
             <div className="hidden md:flex ml-12 space-x-2">
               <Link 
+                href="/" 
+                className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
+              >
+                Home
+              </Link>
+              <Link 
+                href="/handcrafts" 
+                className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
+              >
+                Our Handcrafts
+              </Link>
+              <Link 
                 href="/products" 
                 className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
               >
                 Shop All
+              </Link>
+              <Link 
+                href="/categories" 
+                className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
+              >
+                Categories
               </Link>
             </div>
           </div>
@@ -203,11 +221,32 @@ export default function Navbar() {
             {/* Menu Items */}
             <div className="flex-1 overflow-y-auto p-4 space-y-2">
               <Link
+                href="/"
+                className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 hover:text-primary-600 rounded-xl transition-all font-medium"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                🏠 Home
+              </Link>
+              <Link
+                href="/handcrafts"
+                className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 hover:text-primary-600 rounded-xl transition-all font-medium"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                ✨ Our Handcrafts
+              </Link>
+              <Link
                 href="/products"
                 className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 hover:text-primary-600 rounded-xl transition-all font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 🛍️ Shop All
+              </Link>
+              <Link
+                href="/categories"
+                className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 hover:text-primary-600 rounded-xl transition-all font-medium"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                🎨 Categories
               </Link>
               {isAuthenticated ? (
                 <>

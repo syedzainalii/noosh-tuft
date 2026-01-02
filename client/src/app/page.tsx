@@ -58,7 +58,7 @@ export default function Home() {
     <div className="min-h-screen">
 
       {/* Hero Section */}
-      <div className="relative min-h-[600px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50">
+      <div className="relative h-[600px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50">
         {/* Background Image or Gradient */}
         {heroBanner && heroBanner.image_url && !bannerLoading ? (
           <>
@@ -70,7 +70,7 @@ export default function Home() {
                 className="object-cover"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/30 to-black/40"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-black/5 to-black/10"></div>
             </div>
           </>
         ) : (
@@ -101,20 +101,43 @@ export default function Home() {
             {heroBanner?.subtitle || ''}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/products"
-              className="px-8 py-4 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white rounded-full font-semibold text-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-flex items-center justify-center"
-            >
-              Shop Now
-              <ArrowRightIcon className="ml-2 h-5 w-5" />
-            </Link>
-            <Link
-              href="/handcrafts"
-              className="px-8 py-4 bg-white/80 backdrop-blur-sm text-gray-800 rounded-full font-semibold text-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border-2 border-gray-200 inline-flex items-center justify-center"
-            >
-              View Gallery
-              <HeartIcon className="ml-2 h-5 w-5" />
-            </Link>
+            {/* Button 1 - Primary */}
+            {heroBanner?.button1_text && heroBanner?.button1_url ? (
+              <Link
+                href={heroBanner.button1_url}
+                className="px-8 py-4 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white rounded-full font-semibold text-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-flex items-center justify-center"
+              >
+                {heroBanner.button1_text}
+                <ArrowRightIcon className="ml-2 h-5 w-5" />
+              </Link>
+            ) : (
+              <Link
+                href="/products"
+                className="px-8 py-4 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white rounded-full font-semibold text-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-flex items-center justify-center"
+              >
+                Shop Now
+                <ArrowRightIcon className="ml-2 h-5 w-5" />
+              </Link>
+            )}
+            
+            {/* Button 2 - Secondary */}
+            {heroBanner?.button2_text && heroBanner?.button2_url ? (
+              <Link
+                href={heroBanner.button2_url}
+                className="px-8 py-4 bg-white/80 backdrop-blur-sm text-gray-800 rounded-full font-semibold text-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border-2 border-gray-200 inline-flex items-center justify-center"
+              >
+                {heroBanner.button2_text}
+                <HeartIcon className="ml-2 h-5 w-5" />
+              </Link>
+            ) : (
+              <Link
+                href="/handcrafts"
+                className="px-8 py-4 bg-white/80 backdrop-blur-sm text-gray-800 rounded-full font-semibold text-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border-2 border-gray-200 inline-flex items-center justify-center"
+              >
+                View Gallery
+                <HeartIcon className="ml-2 h-5 w-5" />
+              </Link>
+            )}
           </div>
         </div>
       </div>
