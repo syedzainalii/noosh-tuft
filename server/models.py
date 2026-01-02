@@ -166,3 +166,17 @@ class HeroBanner(Base):
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+
+class AboutPage(Base):
+    __tablename__ = "about_page"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, nullable=False, default="About Us")
+    subtitle = Column(String, nullable=True)
+    content = Column(Text, nullable=False)
+    image_url = Column(String, nullable=True)
+    mission = Column(Text, nullable=True)
+    vision = Column(Text, nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())

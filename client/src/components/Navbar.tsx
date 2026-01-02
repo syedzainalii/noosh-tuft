@@ -85,6 +85,12 @@ export default function Navbar() {
                 Home
               </Link>
               <Link 
+                href="/about" 
+                className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
+              >
+                About Us
+              </Link>
+              <Link 
                 href="/handcrafts" 
                 className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
               >
@@ -226,6 +232,13 @@ export default function Navbar() {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 🏠 Home
+              </Link>
+              <Link
+                href="/about"
+                className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 hover:text-primary-600 rounded-xl transition-all font-medium"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                ℹ️ About Us
               </Link>
               <Link
                 href="/handcrafts"

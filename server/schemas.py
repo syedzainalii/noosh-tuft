@@ -233,3 +233,35 @@ class HeroBannerResponse(HeroBannerBase):
     
     class Config:
         from_attributes = True
+
+
+# About Page Schemas
+class AboutPageBase(BaseModel):
+    title: str = "About Us"
+    subtitle: Optional[str] = None
+    content: str
+    image_url: Optional[str] = None
+    mission: Optional[str] = None
+    vision: Optional[str] = None
+
+
+class AboutPageCreate(AboutPageBase):
+    pass
+
+
+class AboutPageUpdate(BaseModel):
+    title: Optional[str] = None
+    subtitle: Optional[str] = None
+    content: Optional[str] = None
+    image_url: Optional[str] = None
+    mission: Optional[str] = None
+    vision: Optional[str] = None
+
+
+class AboutPageResponse(AboutPageBase):
+    id: int
+    created_at: datetime
+    updated_at: Optional[datetime] = None
+    
+    class Config:
+        from_attributes = True

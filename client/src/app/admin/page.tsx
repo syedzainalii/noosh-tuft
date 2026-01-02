@@ -192,6 +192,12 @@ export default function AdminDashboard() {
                 <p className="text-sm text-gray-600">Manage home page banner</p>
               </div>
             </Link>
+            <Link href="/admin/about" className="group">
+              <div className="p-6 rounded-xl bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-200 hover:border-purple-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                <div className="text-purple-600 font-bold text-lg mb-2 group-hover:text-purple-700">ℹ️ About Page</div>
+                <p className="text-sm text-gray-600">Edit about us content</p>
+              </div>
+            </Link>
           </div>
         </div>
       </div>
