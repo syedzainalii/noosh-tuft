@@ -175,8 +175,8 @@ export default function Home() {
 
       {/* Polaroid Showcase - Crafting Process */}
       <div className="relative bg-gradient-to-b from-white/90 to-pearl-50/90 backdrop-blur-sm py-24 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 px-4 sm:px-6 lg:px-8">
             <div className="inline-block mb-4">
               <span className="text-5xl">🧵</span>
             </div>
@@ -186,7 +186,8 @@ export default function Home() {
 
           {/* Polaroid Cards Carousel */}
           <div className="relative">
-            <div className="flex gap-8 overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory">
+            <div className="flex gap-8 overflow-x-auto pb-12 px-8 scrollbar-hide snap-x snap-mandatory"
+                 style={{scrollPaddingLeft: '2rem', scrollPaddingRight: '2rem'}}>
               {/* Polaroid Card 1 */}
               <div className="flex-shrink-0 w-80 snap-center">
                 <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:-rotate-2 hover:scale-105" style={{transform: 'rotate(-3deg)'}}>
@@ -201,20 +202,6 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Polaroid Card 2 */}
-              <div className="flex-shrink-0 w-80 snap-center">
-                <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:rotate-2 hover:scale-105" style={{transform: 'rotate(2deg)'}}>
-                  <div className="relative h-80 bg-gradient-to-br from-secondary-50 to-accent-50 mb-4 overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center text-secondary-300">
-                      <span className="text-6xl">✂️</span>
-                    </div>
-                  </div>
-                  <div className="text-center font-handwriting text-gray-700 text-lg">
-                    Cutting the fabric
-                  </div>
-                </div>
-              </div>
-
               {/* Polaroid Card 3 */}
               <div className="flex-shrink-0 w-80 snap-center">
                 <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:-rotate-1 hover:scale-105" style={{transform: 'rotate(-1deg)'}}>
@@ -225,6 +212,20 @@ export default function Home() {
                   </div>
                   <div className="text-center font-handwriting text-gray-700 text-lg">
                     Tufting magic begins
+                  </div>
+                </div>
+              </div>
+
+              {/* Polaroid Card 2 */}
+              <div className="flex-shrink-0 w-80 snap-center">
+                <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:rotate-2 hover:scale-105" style={{transform: 'rotate(2deg)'}}>
+                  <div className="relative h-80 bg-gradient-to-br from-secondary-50 to-accent-50 mb-4 overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center text-secondary-300">
+                      <span className="text-6xl">✂️</span>
+                    </div>
+                  </div>
+                  <div className="text-center font-handwriting text-gray-700 text-lg">
+                    Cutting the fabric
                   </div>
                 </div>
               </div>
@@ -245,7 +246,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="text-center mt-12">
+          <div className="text-center mt-12 px-4 sm:px-6 lg:px-8">
             <p className="text-gray-600 italic text-lg">
               Each piece tells a story of dedication and craftsmanship 💝
             </p>
@@ -323,37 +324,6 @@ export default function Home() {
               <p className="text-gray-500">Check back soon for our handcraft collections!</p>
             </div>
           )}
-        </div>
-      </div>
-
-      {/* Features Section */}
-      <div className="relative bg-gradient-to-b from-pearl-50/50 to-white/50 backdrop-blur-sm py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="card-glass text-center group hover:scale-105">
-              <div className="w-20 h-20 bg-gradient-to-br from-primary-400 via-secondary-400 to-accent-400 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-all duration-300 shadow-glow">
-                <TruckIcon className="h-10 w-10 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 gradient-text">Free Shipping</h3>
-              <p className="text-gray-600 leading-relaxed">Complimentary delivery on all orders over $50 💝</p>
-            </div>
-
-            <div className="card-glass text-center group hover:scale-105">
-              <div className="w-20 h-20 bg-gradient-to-br from-secondary-400 via-accent-400 to-primary-400 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-all duration-300 shadow-glow">
-                <ShieldCheckIcon className="h-10 w-10 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 gradient-text">Premium Quality</h3>
-              <p className="text-gray-600 leading-relaxed">Handpicked items with guaranteed excellence ✨</p>
-            </div>
-
-            <div className="card-glass text-center group hover:scale-105">
-              <div className="w-20 h-20 bg-gradient-to-br from-accent-400 via-primary-400 to-secondary-400 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-all duration-300 shadow-glow">
-                <CreditCardIcon className="h-10 w-10 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 gradient-text">Secure Checkout</h3>
-              <p className="text-gray-600 leading-relaxed">Safe and easy payment processing 🎀</p>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -446,6 +416,37 @@ export default function Home() {
             </Link>
           </div>
         )}
+      </div>
+
+      {/* Features Section */}
+      <div className="relative bg-gradient-to-b from-pearl-50/50 to-white/50 backdrop-blur-sm py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="card-glass text-center group hover:scale-105">
+              <div className="w-20 h-20 bg-gradient-to-br from-primary-400 via-secondary-400 to-accent-400 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-all duration-300 shadow-glow">
+                <TruckIcon className="h-10 w-10 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 gradient-text">Free Shipping</h3>
+              <p className="text-gray-600 leading-relaxed">Complimentary delivery on all orders over $50</p>
+            </div>
+
+            <div className="card-glass text-center group hover:scale-105">
+              <div className="w-20 h-20 bg-gradient-to-br from-secondary-400 via-accent-400 to-primary-400 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-all duration-300 shadow-glow">
+                <ShieldCheckIcon className="h-10 w-10 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 gradient-text">Premium Quality</h3>
+              <p className="text-gray-600 leading-relaxed">Handpicked items with guaranteed excellence</p>
+            </div>
+
+            <div className="card-glass text-center group hover:scale-105">
+              <div className="w-20 h-20 bg-gradient-to-br from-accent-400 via-primary-400 to-secondary-400 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-all duration-300 shadow-glow">
+                <CreditCardIcon className="h-10 w-10 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 gradient-text">Secure Checkout</h3>
+              <p className="text-gray-600 leading-relaxed">Safe and easy payment processing</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* CTA Section */}
