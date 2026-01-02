@@ -6,7 +6,6 @@ import api from '@/lib/api';
 import { Product, Category } from '@/types';
 import Image from 'next/image';
 import { SparklesIcon, TruckIcon, ShieldCheckIcon, CreditCardIcon, ArrowRightIcon, HeartIcon } from '@heroicons/react/24/outline';
-import HeroSlideshow from '@/components/HeroSlideshow';
 
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
@@ -44,8 +43,39 @@ export default function Home() {
   return (
     <div className="min-h-screen">
 
-      {/* Hero Slideshow */}
-      <HeroSlideshow />
+      {/* Hero Section */}
+      <div className="relative min-h-[600px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-100/20 via-secondary-100/20 to-accent-100/20"></div>
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxIDAgNiAyLjY5IDYgNnMtMi42OSA2LTYgNi02LTIuNjktNi02IDIuNjktNiA2LTZ6TTE4IDM2YzMuMzEgMCA2IDIuNjkgNiA2cy0yLjY5IDYtNiA2LTYtMi42OS02LTYgMi42OS02IDYtNnoiIGZpbGw9IiNmZmYiIG9wYWNpdHk9IjAuMSIvPjwvZz48L3N2Zz4=')] opacity-30"></div>
+        
+        <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+          <div className="inline-block mb-6 animate-bounce">
+            <SparklesIcon className="h-16 w-16 text-primary-500" />
+          </div>
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent">
+            Welcome to Noosh Tuft
+          </h1>
+          <p className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            Handcrafted Tufted & Embroidered Art
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/products"
+              className="px-8 py-4 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white rounded-full font-semibold text-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-flex items-center justify-center"
+            >
+              Shop Now
+              <ArrowRightIcon className="ml-2 h-5 w-5" />
+            </Link>
+            <Link
+              href="/handcrafts"
+              className="px-8 py-4 bg-white/80 backdrop-blur-sm text-gray-800 rounded-full font-semibold text-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border-2 border-gray-200 inline-flex items-center justify-center"
+            >
+              View Gallery
+              <HeartIcon className="ml-2 h-5 w-5" />
+            </Link>
+          </div>
+        </div>
+      </div>
 
       {/* Polaroid Showcase - Crafting Process */}
       <div className="relative bg-gradient-to-b from-white/90 to-pearl-50/90 backdrop-blur-sm py-24 overflow-hidden">
