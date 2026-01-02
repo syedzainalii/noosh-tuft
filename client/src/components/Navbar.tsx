@@ -49,7 +49,7 @@ export default function Navbar() {
                 <span className="text-2xl font-bold bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent">
                   Noosh Tuft
                 </span>
-                <span className="text-[10px] text-gray-400 font-medium tracking-wider uppercase -mt-1">Boutique</span>
+                <span className="text-[9px] text-gray-400 font-medium tracking-wide -mt-1 max-w-[180px]">Tufted & Embroidered Handcrafts</span>
               </div>
             </Link>
             

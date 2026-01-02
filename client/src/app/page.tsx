@@ -4,13 +4,15 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import api from '@/lib/api';
-import { Product } from '@/types';
+import { Product, Category } from '@/types';
 import Image from 'next/image';
 import { SparklesIcon, TruckIcon, ShieldCheckIcon, CreditCardIcon, ArrowRightIcon, HeartIcon } from '@heroicons/react/24/outline';
 
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
 
   useEffect(() => {
     const fetchFeaturedProducts = async () => {
@@ -24,7 +26,19 @@ export default function Home() {
       }
     };
 
+    const fetchCategories = async () => {
+      try {
+        const response = await api.get('/api/categories');
+        setCategories(response.data);
+      } catch (error) {
+        console.error('Failed to fetch categories:', error);
+      } finally {
+        setCategoriesLoading(false);
+      }
+    };
+
     fetchFeaturedProducts();
+    fetchCategories();
   }, []);
 
   return (
@@ -109,8 +123,161 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Polaroid Showcase - Crafting Process */}
+      <div className="relative bg-gradient-to-b from-white/90 to-pearl-50/90 backdrop-blur-sm py-24 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4">
+              <span className="text-5xl">🧵</span>
+            </div>
+            <h2 className="section-title">Handcrafted with Love</h2>
+            <p className="section-subtitle">Watch our artisanal process come to life</p>
+          </div>
+
+          {/* Polaroid Cards Carousel */}
+          <div className="relative">
+            <div className="flex gap-8 overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory">
+              {/* Polaroid Card 1 */}
+              <div className="flex-shrink-0 w-80 snap-center">
+                <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:-rotate-2 hover:scale-105" style={{transform: 'rotate(-3deg)'}}>
+                  <div className="relative h-80 bg-gradient-to-br from-primary-50 to-secondary-50 mb-4 overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center text-primary-300">
+                      <span className="text-6xl">🎨</span>
+                    </div>
+                  </div>
+                  <div className="text-center font-handwriting text-gray-700 text-lg">
+                    Sketching the design
+                  </div>
+                </div>
+              </div>
+
+              {/* Polaroid Card 2 */}
+              <div className="flex-shrink-0 w-80 snap-center">
+                <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:rotate-2 hover:scale-105" style={{transform: 'rotate(2deg)'}}>
+                  <div className="relative h-80 bg-gradient-to-br from-secondary-50 to-accent-50 mb-4 overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center text-secondary-300">
+                      <span className="text-6xl">✂️</span>
+                    </div>
+                  </div>
+                  <div className="text-center font-handwriting text-gray-700 text-lg">
+                    Cutting the fabric
+                  </div>
+                </div>
+              </div>
+
+              {/* Polaroid Card 3 */}
+              <div className="flex-shrink-0 w-80 snap-center">
+                <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:-rotate-1 hover:scale-105" style={{transform: 'rotate(-1deg)'}}>
+                  <div className="relative h-80 bg-gradient-to-br from-accent-50 to-primary-50 mb-4 overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center text-accent-300">
+                      <span className="text-6xl">🧶</span>
+                    </div>
+                  </div>
+                  <div className="text-center font-handwriting text-gray-700 text-lg">
+                    Tufting magic begins
+                  </div>
+                </div>
+              </div>
+
+              {/* Polaroid Card 4 */}
+              <div className="flex-shrink-0 w-80 snap-center">
+                <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:rotate-3 hover:scale-105" style={{transform: 'rotate(1deg)'}}>
+                  <div className="relative h-80 bg-gradient-to-br from-primary-50 to-accent-50 mb-4 overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center text-primary-300">
+                      <span className="text-6xl">✨</span>
+                    </div>
+                  </div>
+                  <div className="text-center font-handwriting text-gray-700 text-lg">
+                    Adding final touches
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <p className="text-gray-600 italic text-lg">
+              Each piece tells a story of dedication and craftsmanship 💝
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Categories Section */}
+      <div className="relative bg-white/80 backdrop-blur-sm py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4">
+              <span className="text-5xl">🎀</span>
+            </div>
+            <h2 className="section-title">Explore Our Crafts</h2>
+            <p className="section-subtitle">Discover different styles of handmade artistry</p>
+          </div>
+
+          {categoriesLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="card animate-pulse">
+                  <div className="bg-gradient-to-br from-gray-200 to-gray-300 h-48 rounded-2xl mb-4"></div>
+                  <div className="bg-gray-300 h-6 rounded-lg w-3/4 mb-2"></div>
+                  <div className="bg-gray-200 h-4 rounded-lg w-full"></div>
+                </div>
+              ))}
+            </div>
+          ) : categories.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {categories.map((category, index) => (
+                <Link
+                  key={category.id}
+                  href={`/products?category=${category.slug}`}
+                  className="group"
+                  style={{animationDelay: `${index * 0.1}s`}}
+                >
+                  <div className="card hover:shadow-glow cursor-pointer overflow-hidden">
+                    <div className="relative h-48 mb-5 bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 rounded-2xl overflow-hidden">
+                      {category.image_url ? (
+                        <Image
+                          src={category.image_url}
+                          alt={category.name}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center text-primary-300">
+                          <HeartIcon className="h-16 w-16" />
+                        </div>
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute bottom-0 left-0 right-0 p-4 text-white font-bold text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center">
+                        Explore →
+                      </div>
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-primary-500 group-hover:to-secondary-500 group-hover:bg-clip-text transition-all text-center">
+                      {category.name}
+                    </h3>
+                    {category.description && (
+                      <p className="text-gray-500 text-sm text-center leading-relaxed line-clamp-2">
+                        {category.description}
+                      </p>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary-100 via-secondary-100 to-accent-100 rounded-full mb-6 shadow-dreamy">
+                <span className="text-4xl">🎨</span>
+              </div>
+              <p className="text-xl text-gray-600 mb-6 font-medium">No categories yet</p>
+              <p className="text-gray-500">Check back soon for our handcraft collections!</p>
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* Features Section */}
-      <div className="relative bg-white/50 backdrop-blur-sm py-20">
+      <div className="relative bg-gradient-to-b from-pearl-50/50 to-white/50 backdrop-blur-sm py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="card-glass text-center group hover:scale-105">

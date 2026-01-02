@@ -107,4 +107,17 @@ body::before {
   .shadow-glow {
     box-shadow: 0 0 30px rgba(255, 63, 163, 0.4), 0 0 60px rgba(168, 85, 247, 0.2);
   }
+
+  .font-handwriting {
+    font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }

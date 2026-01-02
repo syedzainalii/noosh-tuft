@@ -72,82 +72,170 @@ export default function AdminCategoriesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       <Navbar />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Manage Categories</h1>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-24">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+          <div>
+            <h1 className="text-4xl font-bold gradient-text mb-2">Manage Craft Categories</h1>
+            <p className="text-gray-600">Organize your handcrafted products by category</p>
+          </div>
           <button onClick={() => setShowAddModal(true)} className="btn-primary">
-            Add New Category
+            ✨ Add New Category
           </button>
         </div>
 
         {isLoading ? (
-          <div className="card animate-pulse">
-            <div className="space-y-4">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="bg-gray-300 h-16 rounded"></div>
-              ))}
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="card animate-pulse">
+                <div className="bg-gradient-to-br from-gray-200 to-gray-300 h-48 rounded-2xl mb-4"></div>
+                <div className="bg-gray-300 h-6 rounded-lg w-3/4 mb-2"></div>
+                <div className="bg-gray-200 h-4 rounded-lg w-full"></div>
+              </div>
+            ))}
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        ) : categories.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((category) => (
-              <div key={category.id} className="card">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{category.name}</h3>
-                <p className="text-sm text-gray-600 mb-4">{category.description || 'No description'}</p>
-                <div className="flex space-x-2">
+              <div key={category.id} className="card group">
+                <div className="relative h-48 mb-4 bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 rounded-2xl overflow-hidden">
+                  {category.image_url ? (
+                    <img
+                      src={category.image_url}
+                      alt={category.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center text-primary-300">
+                      <span className="text-5xl">🎨</span>
+                    </div>
+                  )}
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{category.name}</h3>
+                <p className="text-sm text-gray-600 mb-4 line-clamp-2">{category.description || 'No description'}</p>
+                <div className="flex space-x-3 pt-4 border-t border-gray-100">
                   <button
                     onClick={() => handleDelete(category.id, category.name)}
-                    className="text-red-600 hover:text-red-800"
+                    className="flex items-center space-x-2 text-red-600 hover:text-red-800 transition-colors"
                   >
                     <TrashIcon className="h-5 w-5" />
+                    <span className="text-sm font-medium">Delete</span>
                   </button>
                 </div>
               </div>
             ))}
           </div>
+        ) : (
+          <div className="text-center py-20">
+            <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-primary-100 via-secondary-100 to-accent-100 rounded-full mb-6 shadow-dreamy">
+              <span className="text-5xl">🎀</span>
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">No categories yet</h3>
+            <p className="text-gray-600 mb-6">Create your first category to organize your handcrafts</p>
+            <button onClick={() => setShowAddModal(true)} className="btn-primary">
+              Create First Category
+            </button>
+          </div>
         )}
 
         {/* Add Category Modal */}
         {showAddModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg p-6 max-w-md w-full">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Add New Category</h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in">
+            <div className="bg-white rounded-3xl p-8 max-w-xl w-full shadow-dreamy border border-primary-100 animate-slide-up">
+              <div className="flex items-center justify-between mb-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+                  <h2 className="text-3xl font-bold gradient-text mb-1">Add New Category</h2>
+                  <p className="text-gray-600 text-sm">Create a new category for your handcrafts</p>
+                </div>
+                <span className="text-4xl">🎨</span>
+              </div>
+              
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">Category Name *</label>
                   <input
                     type="text"
                     required
+                    placeholder="e.g., Tufted Rugs, Embroidered Pillows"
                     className="input-field"
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) => {
+                      const name = e.target.value;
+                      const slug = name.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+                      setFormData({ ...formData, name, slug });
+                    }}
                   />
                 </div>
+                
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Slug *</label>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                    Slug * <span className="text-gray-400 font-normal text-xs">(auto-generated)</span>
+                  </label>
                   <input
                     type="text"
                     required
-                    className="input-field"
+                    placeholder="e.g., tufted-rugs"
+                    className="input-field bg-gray-50"
                     value={formData.slug}
                     onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
                   />
                 </div>
+                
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">Description</label>
                   <textarea
                     rows={3}
+                    placeholder="Describe this category and what makes it special..."
                     className="input-field"
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   />
                 </div>
-                <div className="flex space-x-4">
-                  <button type="submit" className="btn-primary">Create</button>
-                  <button type="button" onClick={() => setShowAddModal(false)} className="btn-secondary">
+                
+                <div>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                    Image URL <span className="text-gray-400 font-normal text-xs">(optional)</span>
+                  </label>
+                  <input
+                    type="url"
+                    placeholder="https://example.com/image.jpg"
+                    className="input-field"
+                    value={formData.image_url}
+                    onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
+                  />
+                  <p className="text-xs text-gray-500 mt-2">💡 Tip: Add a beautiful photo showcasing this craft category</p>
+                </div>
+
+                {formData.image_url && (
+                  <div className="border-2 border-primary-100 rounded-2xl p-4 bg-primary-50/30">
+                    <p className="text-sm font-medium text-gray-700 mb-2">Image Preview:</p>
+                    <div className="relative h-48 bg-gradient-to-br from-primary-50 to-secondary-50 rounded-xl overflow-hidden">
+                      <img
+                        src={formData.image_url}
+                        alt="Preview"
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).style.display = 'none';
+                        }}
+                      />
+                    </div>
+                  </div>
+                )}
+                
+                <div className="flex space-x-4 pt-4">
+                  <button type="submit" className="btn-primary flex-1">
+                    ✨ Create Category
+                  </button>
+                  <button 
+                    type="button" 
+                    onClick={() => {
+                      setShowAddModal(false);
+                      setFormData({ name: '', slug: '', description: '', image_url: '' });
+                    }} 
+                    className="btn-secondary flex-1"
+                  >
                     Cancel
                   </button>
                 </div>

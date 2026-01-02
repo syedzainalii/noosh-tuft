@@ -6,8 +6,8 @@ import { Toaster } from 'react-hot-toast'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Noosh Tuft Boutique - Curated with Love',
-  description: 'Discover handpicked treasures that make you sparkle. Premium quality products curated just for you.',
+  title: 'Noosh Tuft - Tufted & Embroidered Handcrafts',
+  description: 'Discover authentic handcrafted treasures. Each piece lovingly tufted and embroidered by artisan hands.',
 }
 
 export default function RootLayout({
