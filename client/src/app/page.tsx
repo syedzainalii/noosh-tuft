@@ -6,6 +6,7 @@ import api from '@/lib/api';
 import { Product, Category } from '@/types';
 import Image from 'next/image';
 import { SparklesIcon, TruckIcon, ShieldCheckIcon, CreditCardIcon, ArrowRightIcon, HeartIcon } from '@heroicons/react/24/outline';
+import HeroSlideshow from '@/components/HeroSlideshow';
 
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
@@ -43,83 +44,8 @@ export default function Home() {
   return (
     <div className="min-h-screen">
 
-      {/* Hero Section */}
-      <div className="relative overflow-hidden pt-20 min-h-[90vh] flex items-center">
-        {/* Dreamy Animated Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-50/60 via-secondary-50/40 to-pearl-100/60">
-          <div className="absolute inset-0 opacity-40">
-            <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-primary-300 to-secondary-300 rounded-full mix-blend-multiply filter blur-3xl animate-float"></div>
-            <div className="absolute top-40 right-10 w-96 h-96 bg-gradient-to-br from-secondary-300 to-accent-300 rounded-full mix-blend-multiply filter blur-3xl animate-float" style={{animationDelay: '1s'}}></div>
-            <div className="absolute bottom-20 left-1/2 w-96 h-96 bg-gradient-to-br from-accent-200 to-primary-200 rounded-full mix-blend-multiply filter blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
-          </div>
-          {/* Sparkle overlay */}
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-primary-400 rounded-full animate-pulse"></div>
-            <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-secondary-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
-            <div className="absolute bottom-1/3 left-1/2 w-2 h-2 bg-accent-400 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
-            <div className="absolute top-2/3 right-1/4 w-3 h-3 bg-primary-300 rounded-full animate-pulse" style={{animationDelay: '1.5s'}}></div>
-          </div>
-        </div>
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 w-full">
-          <div className="text-center animate-fade-in">
-            <div className="inline-flex items-center space-x-2 bg-white/90 backdrop-blur-md px-6 py-3 rounded-full mb-8 shadow-dreamy border border-primary-100">
-              <HeartIcon className="h-5 w-5 text-primary-500 animate-pulse" />
-              <span className="text-sm font-bold text-transparent bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text">Curated with Love, Just for You</span>
-            </div>
-            
-            <h1 className="text-6xl md:text-8xl font-black mb-8 animate-slide-up leading-tight">
-              <span className="bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent drop-shadow-sm">
-                Your Dream
-              </span>
-              <br />
-              <span className="text-gray-800">Collection ✨</span>
-            </h1>
-            
-            <p className="text-xl md:text-3xl text-gray-600 mb-12 max-w-3xl mx-auto animate-slide-up font-light leading-relaxed" style={{animationDelay: '0.1s'}}>
-              Discover handpicked treasures that make you sparkle
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-5 justify-center animate-slide-up" style={{animationDelay: '0.2s'}}>
-              <Link href="/products" className="btn-primary text-lg group relative overflow-hidden">
-                <span className="relative z-10 flex items-center justify-center">
-                  Shop Now
-                  <ArrowRightIcon className="inline-block h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                </span>
-              </Link>
-            </div>
-
-            {/* Floating Elements */}
-            <div className="mt-16 flex justify-center space-x-8 animate-fade-in" style={{animationDelay: '0.4s'}}>
-              <div className="flex items-center space-x-2 text-gray-600">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary-100 to-secondary-100 rounded-full flex items-center justify-center">
-                  <span className="text-2xl">💖</span>
-                </div>
-                <span className="text-sm font-medium">Handpicked</span>
-              </div>
-              <div className="flex items-center space-x-2 text-gray-600">
-                <div className="w-10 h-10 bg-gradient-to-br from-secondary-100 to-accent-100 rounded-full flex items-center justify-center">
-                  <span className="text-2xl">✨</span>
-                </div>
-                <span className="text-sm font-medium">Premium Quality</span>
-              </div>
-              <div className="flex items-center space-x-2 text-gray-600">
-                <div className="w-10 h-10 bg-gradient-to-br from-accent-100 to-primary-100 rounded-full flex items-center justify-center">
-                  <span className="text-2xl">🎀</span>
-                </div>
-                <span className="text-sm font-medium">Fast Shipping</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Elegant Wave Divider */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
-            <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z" fill="white" opacity="0.9"/>
-          </svg>
-        </div>
-      </div>
+      {/* Hero Slideshow */}
+      <HeroSlideshow />
 
       {/* Polaroid Showcase - Crafting Process */}
       <div className="relative bg-gradient-to-b from-white/90 to-pearl-50/90 backdrop-blur-sm py-24 overflow-hidden">

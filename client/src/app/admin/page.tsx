@@ -155,7 +155,13 @@ export default function AdminDashboard() {
         {/* Quick Actions */}
         <div className="card">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Quick Actions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Link href="/admin/hero-slides" className="group">
+              <div className="p-6 rounded-xl bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-200 hover:border-purple-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                <div className="text-purple-600 font-bold text-lg mb-2 group-hover:text-purple-700">🎬 Hero Slides</div>
+                <p className="text-sm text-gray-600">Manage homepage slideshow</p>
+              </div>
+            </Link>
             <Link href="/admin/products" className="group">
               <div className="p-6 rounded-xl bg-gradient-to-br from-primary-50 to-primary-100 border-2 border-primary-200 hover:border-primary-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                 <div className="text-primary-600 font-bold text-lg mb-2 group-hover:text-primary-700">🛍️ Products</div>
@@ -181,8 +187,8 @@ export default function AdminDashboard() {
               </div>
             </Link>
             <Link href="/admin/products/new" className="group">
-              <div className="p-6 rounded-xl bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-200 hover:border-purple-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                <div className="text-purple-600 font-bold text-lg mb-2 group-hover:text-purple-700">➕ New Product</div>
+              <div className="p-6 rounded-xl bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-200 hover:border-green-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                <div className="text-green-600 font-bold text-lg mb-2 group-hover:text-green-700">➕ New Product</div>
                 <p className="text-sm text-gray-600">Create product listing</p>
               </div>
             </Link>

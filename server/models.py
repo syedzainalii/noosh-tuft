@@ -154,3 +154,18 @@ class ProductReview(Base):
     # Relationships
     product = relationship("Product", back_populates="reviews")
     user = relationship("User", back_populates="reviews")
+
+
+class HeroSlide(Base):
+    __tablename__ = "hero_slides"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, nullable=False)
+    subtitle = Column(String, nullable=True)
+    image_url = Column(String, nullable=False)
+    button_text = Column(String, nullable=True)
+    button_link = Column(String, nullable=True)
+    order_index = Column(Integer, default=0)
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
