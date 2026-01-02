@@ -82,9 +82,7 @@ export default function Home() {
         
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
           {!heroBanner || !heroBanner.image_url ? (
-            <div className="inline-block mb-6 animate-bounce">
-              <SparklesIcon className="h-16 w-16 text-primary-500" />
-            </div>
+        
           ) : null}
           <h1 className={`text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 ${
             heroBanner && heroBanner.image_url
