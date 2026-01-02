@@ -7,6 +7,7 @@ import api from '@/lib/api';
 import { Category } from '@/types';
 import toast from 'react-hot-toast';
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
+import ImageUpload from '@/components/ImageUpload';
 
 export default function AdminCategoriesPage() {
   const router = useRouter();
