@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Navbar from '@/components/Navbar';
 import { useAuthStore } from '@/store/authStore';
 import api from '@/lib/api';
 import { DashboardStats } from '@/types';
@@ -47,9 +46,8 @@ export default function AdminDashboard() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <Navbar />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="min-h-screen">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-8">
           <div className="animate-pulse">
             <div className="bg-gray-300 h-8 rounded w-1/4 mb-8"></div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -67,9 +65,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen">
-      <Navbar />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-8">
         <div className="mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-3">
             <span className="bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
@@ -159,28 +155,34 @@ export default function AdminDashboard() {
         {/* Quick Actions */}
         <div className="card">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Quick Actions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
             <Link href="/admin/products" className="group">
               <div className="p-6 rounded-xl bg-gradient-to-br from-primary-50 to-primary-100 border-2 border-primary-200 hover:border-primary-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                <div className="text-primary-600 font-bold text-lg mb-2 group-hover:text-primary-700">Manage Products</div>
+                <div className="text-primary-600 font-bold text-lg mb-2 group-hover:text-primary-700">🛍️ Products</div>
                 <p className="text-sm text-gray-600">View and edit products</p>
               </div>
             </Link>
             <Link href="/admin/categories" className="group">
               <div className="p-6 rounded-xl bg-gradient-to-br from-secondary-50 to-secondary-100 border-2 border-secondary-200 hover:border-secondary-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                <div className="text-secondary-600 font-bold text-lg mb-2 group-hover:text-secondary-700">Manage Categories</div>
+                <div className="text-secondary-600 font-bold text-lg mb-2 group-hover:text-secondary-700">🎨 Categories</div>
                 <p className="text-sm text-gray-600">Organize your catalog</p>
+              </div>
+            </Link>
+            <Link href="/admin/handcrafts" className="group">
+              <div className="p-6 rounded-xl bg-gradient-to-br from-pink-50 to-pink-100 border-2 border-pink-200 hover:border-pink-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                <div className="text-pink-600 font-bold text-lg mb-2 group-hover:text-pink-700">🧵 Handcrafts</div>
+                <p className="text-sm text-gray-600">Process photos</p>
               </div>
             </Link>
             <Link href="/admin/orders" className="group">
               <div className="p-6 rounded-xl bg-gradient-to-br from-accent-50 to-accent-100 border-2 border-accent-200 hover:border-accent-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                <div className="text-accent-600 font-bold text-lg mb-2 group-hover:text-accent-700">Manage Orders</div>
+                <div className="text-accent-600 font-bold text-lg mb-2 group-hover:text-accent-700">📦 Orders</div>
                 <p className="text-sm text-gray-600">Track and fulfill orders</p>
               </div>
             </Link>
             <Link href="/admin/products/new" className="group">
               <div className="p-6 rounded-xl bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-200 hover:border-purple-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                <div className="text-purple-600 font-bold text-lg mb-2 group-hover:text-purple-700">Add New Product</div>
+                <div className="text-purple-600 font-bold text-lg mb-2 group-hover:text-purple-700">➕ New Product</div>
                 <p className="text-sm text-gray-600">Create product listing</p>
               </div>
             </Link>

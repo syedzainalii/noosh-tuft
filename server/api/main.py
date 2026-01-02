@@ -7,7 +7,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import engine, Base
-from routers import auth, products, categories, cart, orders, admin
+from routers import auth, products, categories, cart, orders, admin, handcraft_photos
 from models import User, UserRole
 from auth import get_password_hash
 from config import settings
@@ -43,6 +43,7 @@ app.include_router(categories.router)
 app.include_router(cart.router)
 app.include_router(orders.router)
 app.include_router(admin.router)
+app.include_router(handcraft_photos.router)
 
 
 @app.on_event("startup")

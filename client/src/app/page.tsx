@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Navbar from '@/components/Navbar';
 import api from '@/lib/api';
 import { Product, Category } from '@/types';
 import Image from 'next/image';
@@ -43,7 +42,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      <Navbar />
 
       {/* Hero Section */}
       <div className="relative overflow-hidden pt-20 min-h-[90vh] flex items-center">

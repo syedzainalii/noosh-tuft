@@ -2,13 +2,16 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Navbar from '@/components/Navbar';
+import { useSearchParams } from 'next/navigation';
 import api from '@/lib/api';
 import { Product, Category } from '@/types';
 import Image from 'next/image';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function ProductsPage() {
+  const searchParams = useSearchParams();
+  const categorySlug = searchParams.get('category');
+  
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -18,6 +21,16 @@ export default function ProductsPage() {
   useEffect(() => {
     fetchCategories();
   }, []);
+
+  useEffect(() => {
+    // Find category by slug from URL
+    if (categorySlug && categories.length > 0) {
+      const category = categories.find(cat => cat.slug === categorySlug);
+      if (category) {
+        setSelectedCategory(category.id);
+      }
+    }
+  }, [categorySlug, categories]);
 
   useEffect(() => {
     fetchProducts();
@@ -50,12 +63,21 @@ export default function ProductsPage() {
 
   return (
     <div className="min-h-screen">
-      <Navbar />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center mb-12">
-          <h1 className="section-title">Explore Our Products</h1>
-          <p className="section-subtitle">Find exactly what you're looking for</p>
+          <div className="inline-block mb-4">
+            <span className="text-6xl">🛍️</span>
+          </div>
+          <h1 className="section-title">
+            {selectedCategory && categories.find(c => c.id === selectedCategory)
+              ? categories.find(c => c.id === selectedCategory)?.name
+              : 'All Products'}
+          </h1>
+          <p className="section-subtitle">
+            {selectedCategory && categories.find(c => c.id === selectedCategory)?.description
+              ? categories.find(c => c.id === selectedCategory)?.description
+              : 'Discover our handcrafted collection'}
+          </p>
         </div>
 
         {/* Search and Filter */}
@@ -73,26 +95,32 @@ export default function ProductsPage() {
 
           <div className="flex flex-wrap gap-3 justify-center">
             <button
-              onClick={() => setSelectedCategory(null)}
-              className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+              onClick={() => {
+                setSelectedCategory(null);
+                window.history.pushState({}, '', '/products');
+              }}
+              className={`px-6 py-3 rounded-full font-bold transition-all duration-300 ${
                 selectedCategory === null
-                  ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg'
-                  : 'bg-white/80 backdrop-blur-sm text-gray-700 border-2 border-gray-200 hover:border-primary-300'
+                  ? 'bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white shadow-glow scale-110'
+                  : 'bg-white/90 backdrop-blur-sm text-gray-700 border-2 border-primary-100 hover:border-primary-300 hover:scale-105'
               }`}
             >
-              All Categories
+              🌟 All Products
             </button>
             {categories.map((category) => (
               <button
                 key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                onClick={() => {
+                  setSelectedCategory(category.id);
+                  window.history.pushState({}, '', `/products?category=${category.slug}`);
+                }}
+                className={`px-6 py-3 rounded-full font-bold transition-all duration-300 ${
                   selectedCategory === category.id
-                    ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg'
-                    : 'bg-white/80 backdrop-blur-sm text-gray-700 border-2 border-gray-200 hover:border-primary-300'
+                    ? 'bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white shadow-glow scale-110'
+                    : 'bg-white/90 backdrop-blur-sm text-gray-700 border-2 border-primary-100 hover:border-primary-300 hover:scale-105'
                 }`}
               >
-                {category.name}
+                🎨 {category.name}
               </button>
             ))}
           </div>
