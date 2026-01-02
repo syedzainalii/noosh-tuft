@@ -62,7 +62,7 @@ export default function Sidebar() {
           </div>
           <div className="flex flex-col">
             <span className="text-xl font-bold bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent">
-              Noosh Tuft
+              Noosh Tufts
             </span>
             <span className="text-[8px] text-gray-500 font-medium leading-tight">
               Tufted & Embroidered<br/>Handcrafts

@@ -7,7 +7,7 @@ import Sidebar from '@/components/Sidebar'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Noosh Tuft - Tufted & Embroidered Handcrafts',
+  title: 'Noosh Tufts - Tufted & Embroidered Handcrafts',
   description: 'Discover authentic handcrafted treasures. Each piece lovingly tufted and embroidered by artisan hands.',
 }
 
