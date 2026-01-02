@@ -40,16 +40,16 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-3 group">
-              <div className="relative w-12 h-12 bg-gradient-to-br from-primary-400 via-secondary-400 to-accent-400 rounded-2xl flex items-center justify-center transform group-hover:rotate-12 transition-all duration-300 shadow-glow">
-                <HeartIcon className="h-6 w-6 text-white animate-pulse" />
+            <Link href="/" className="flex items-center space-x-2 sm:space-x-3 group">
+              <div className="relative w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary-400 via-secondary-400 to-accent-400 rounded-2xl flex items-center justify-center transform group-hover:rotate-12 transition-all duration-300 shadow-glow">
+                <HeartIcon className="h-5 w-5 sm:h-6 sm:w-6 text-white animate-pulse" />
                 <div className="absolute inset-0 bg-gradient-to-br from-primary-300 to-secondary-300 rounded-2xl blur opacity-50 group-hover:opacity-75 transition-opacity"></div>
               </div>
               <div className="flex flex-col">
-                <span className="text-2xl font-bold bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent">
+                <span className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent">
                   Noosh Tufts
                 </span>
-                <span className="text-[9px] text-gray-400 font-medium tracking-wide -mt-1 max-w-[180px]">Tufted & Embroidered Handcrafts</span>
+                <span className="hidden sm:block text-[9px] text-gray-400 font-medium tracking-wide -mt-1 max-w-[180px]">Tufted & Embroidered Handcrafts</span>
               </div>
             </Link>
             
