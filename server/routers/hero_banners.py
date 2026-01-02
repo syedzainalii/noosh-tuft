@@ -9,11 +9,11 @@ from auth import get_current_admin_user
 router = APIRouter(prefix="/api/hero-banners", tags=["Hero Banners"])
 
 
-@router.get("/active", response_model=Optional[HeroBannerResponse])
-def get_active_hero_banner(db: Session = Depends(get_db)):
-    """Get the active hero banner for display on home page"""
-    banner = db.query(HeroBanner).filter(HeroBanner.is_active == True).first()
-    return banner
+@router.get("/active", response_model=List[HeroBannerResponse])
+def get_active_hero_banners(db: Session = Depends(get_db)):
+    """Get all active hero banners for slideshow on home page"""
+    banners = db.query(HeroBanner).filter(HeroBanner.is_active == True).order_by(HeroBanner.created_at.desc()).all()
+    return banners
 
 
 @router.get("", response_model=List[HeroBannerResponse])

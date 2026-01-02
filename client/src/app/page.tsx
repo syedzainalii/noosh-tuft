@@ -12,8 +12,9 @@ export default function Home() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoriesLoading, setCategoriesLoading] = useState(true);
-  const [heroBanner, setHeroBanner] = useState<any>(null);
+  const [heroBanners, setHeroBanners] = useState<any[]>([]);
   const [bannerLoading, setBannerLoading] = useState(true);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const fetchFeaturedProducts = async () => {
@@ -38,12 +39,12 @@ export default function Home() {
       }
     };
 
-    const fetchHeroBanner = async () => {
+    const fetchHeroBanners = async () => {
       try {
         const response = await api.get('/api/hero-banners/active');
-        setHeroBanner(response.data);
+        setHeroBanners(response.data || []);
       } catch (error) {
-        console.error('Failed to fetch hero banner:', error);
+        console.error('Failed to fetch hero banners:', error);
       } finally {
         setBannerLoading(false);
       }
@@ -51,27 +52,57 @@ export default function Home() {
 
     fetchFeaturedProducts();
     fetchCategories();
-    fetchHeroBanner();
+    fetchHeroBanners();
   }, []);
+
+  // Auto-rotate slideshow
+  useEffect(() => {
+    if (heroBanners.length <= 1) return; // No rotation if 0 or 1 banner
+    
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroBanners.length);
+    }, 5000); // Change slide every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [heroBanners.length]);
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
+
+  const goToPrevious = () => {
+    setCurrentSlide((prev) => (prev - 1 + heroBanners.length) % heroBanners.length);
+  };
+
+  const goToNext = () => {
+    setCurrentSlide((prev) => (prev + 1) % heroBanners.length);
+  };
 
   return (
     <div className="min-h-screen">
 
-      {/* Hero Section */}
+      {/* Hero Section - Slideshow */}
       <div className="relative h-[800px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50">
-        {/* Background Image or Gradient */}
-        {heroBanner && heroBanner.image_url && !bannerLoading ? (
+        {/* Slideshow Images */}
+        {heroBanners.length > 0 && !bannerLoading ? (
           <>
-            <div className="absolute inset-0">
-              <Image
-                src={heroBanner.image_url}
-                alt={heroBanner.title || 'Hero Banner'}
-                fill
-                className="object-cover"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-black/5 to-black/10"></div>
-            </div>
+            {heroBanners.map((banner, index) => (
+              <div
+                key={banner.id}
+                className={`absolute inset-0 transition-opacity duration-1000 ${
+                  index === currentSlide ? 'opacity-100' : 'opacity-0'
+                }`}
+              >
+                <Image
+                  src={banner.image_url}
+                  alt={banner.title || `Hero Banner ${index + 1}`}
+                  fill
+                  className="object-cover"
+                  priority={index === 0}
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-black/5 to-black/10"></div>
+              </div>
+            ))}
           </>
         ) : (
           <>
@@ -80,27 +111,70 @@ export default function Home() {
           </>
         )}
         
+        {/* Content Overlay */}
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-          {!heroBanner || !heroBanner.image_url ? (
+          {heroBanners.length === 0 ? (
             <div className="inline-block mb-6 animate-bounce">
               <SparklesIcon className="h-16 w-16 text-primary-500" />
             </div>
           ) : null}
-          <h1 className={`text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 ${
-            heroBanner && heroBanner.image_url
+          <h1 className={`text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 transition-all duration-500 ${
+            heroBanners.length > 0
               ? 'text-white drop-shadow-2xl'
               : 'bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent'
           }`}>
-            {heroBanner?.title || ''}
+            {heroBanners[currentSlide]?.title || 'Welcome to Noosh Tuft'}
           </h1>
-          <p className={`text-xl sm:text-2xl mb-8 max-w-2xl mx-auto ${
-            heroBanner && heroBanner.image_url
+          <p className={`text-xl sm:text-2xl mb-8 max-w-2xl mx-auto transition-all duration-500 ${
+            heroBanners.length > 0
               ? 'text-white drop-shadow-lg'
               : 'text-gray-600'
           }`}>
-            {heroBanner?.subtitle || ''}
+            {heroBanners[currentSlide]?.subtitle || 'Handcrafted Tufted & Embroidered Art'}
           </p>
         </div>
+
+        {/* Navigation Arrows */}
+        {heroBanners.length > 1 && (
+          <>
+            <button
+              onClick={goToPrevious}
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 backdrop-blur-sm p-3 rounded-full transition-all duration-300 group"
+              aria-label="Previous slide"
+            >
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={goToNext}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 backdrop-blur-sm p-3 rounded-full transition-all duration-300 group"
+              aria-label="Next slide"
+            >
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </>
+        )}
+
+        {/* Dot Indicators */}
+        {heroBanners.length > 1 && (
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+            {heroBanners.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === currentSlide
+                    ? 'bg-white w-8'
+                    : 'bg-white/50 hover:bg-white/70'
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Polaroid Showcase - Crafting Process */}
