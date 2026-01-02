@@ -199,7 +199,7 @@ export default function HeroBannerManagement() {
                   className="w-4 h-4 text-primary-600 rounded focus:ring-primary-500"
                 />
                 <label htmlFor="is_active" className="ml-2 text-sm font-medium text-gray-700">
-                  Set as active banner (will deactivate all others)
+                  Include in slideshow (multiple banners can be active)
                 </label>
               </div>
 

@@ -33,10 +33,7 @@ def create_hero_banner(
     db: Session = Depends(get_db)
 ):
     """Create a new hero banner (admin only)"""
-    # If this banner is active, deactivate all others
-    if banner.is_active:
-        db.query(HeroBanner).update({HeroBanner.is_active: False})
-    
+    # Allow multiple active banners for slideshow
     db_banner = HeroBanner(**banner.dict())
     db.add(db_banner)
     db.commit()
@@ -58,10 +55,7 @@ def update_hero_banner(
     
     update_data = banner.dict(exclude_unset=True)
     
-    # If setting this banner as active, deactivate all others
-    if update_data.get("is_active") == True:
-        db.query(HeroBanner).filter(HeroBanner.id != banner_id).update({HeroBanner.is_active: False})
-    
+    # Allow multiple active banners for slideshow
     for field, value in update_data.items():
         setattr(db_banner, field, value)
     
