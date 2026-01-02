@@ -1,3 +1,9 @@
+import sys
+from pathlib import Path
+
+# Add parent directory to Python path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import engine, Base
@@ -20,7 +26,11 @@ app = FastAPI(
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", settings.FRONTEND_URL],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://noosh-tuft.vercel.app",
+        settings.FRONTEND_URL
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
