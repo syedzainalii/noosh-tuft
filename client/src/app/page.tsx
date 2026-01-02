@@ -61,7 +61,7 @@ export default function Home() {
     
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroBanners.length);
-    }, 5000); // Change slide every 5 seconds
+    }, 7000); // Change slide every 7 seconds
 
     return () => clearInterval(interval);
   }, [heroBanners.length]);
@@ -118,20 +118,16 @@ export default function Home() {
               <SparklesIcon className="h-16 w-16 text-primary-500" />
             </div>
           ) : null}
-          <h1 className={`text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 transition-all duration-500 ${
-            heroBanners.length > 0
-              ? 'text-white drop-shadow-2xl'
-              : 'bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent'
-          }`}>
-            {heroBanners[currentSlide]?.title || 'Welcome to Noosh Tuft'}
-          </h1>
-          <p className={`text-xl sm:text-2xl mb-8 max-w-2xl mx-auto transition-all duration-500 ${
-            heroBanners.length > 0
-              ? 'text-white drop-shadow-lg'
-              : 'text-gray-600'
-          }`}>
-            {heroBanners[currentSlide]?.subtitle || 'Handcrafted Tufted & Embroidered Art'}
-          </p>
+          {heroBanners[currentSlide]?.title && (
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 transition-all duration-500 text-white drop-shadow-2xl">
+              {heroBanners[currentSlide].title}
+            </h1>
+          )}
+          {heroBanners[currentSlide]?.subtitle && (
+            <p className="text-xl sm:text-2xl mb-8 max-w-2xl mx-auto transition-all duration-500 text-white drop-shadow-lg">
+              {heroBanners[currentSlide].subtitle}
+            </p>
+          )}
         </div>
 
         {/* Navigation Arrows */}
