@@ -205,3 +205,31 @@ class DashboardStats(BaseModel):
     total_customers: int
     pending_orders: int
     low_stock_products: int
+
+
+# Hero Banner Schemas
+class HeroBannerBase(BaseModel):
+    title: Optional[str] = None
+    subtitle: Optional[str] = None
+    image_url: str
+    is_active: bool = True
+
+
+class HeroBannerCreate(HeroBannerBase):
+    pass
+
+
+class HeroBannerUpdate(BaseModel):
+    title: Optional[str] = None
+    subtitle: Optional[str] = None
+    image_url: Optional[str] = None
+    is_active: Optional[bool] = None
+
+
+class HeroBannerResponse(HeroBannerBase):
+    id: int
+    created_at: datetime
+    updated_at: Optional[datetime] = None
+    
+    class Config:
+        from_attributes = True

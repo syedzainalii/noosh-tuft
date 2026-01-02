@@ -12,6 +12,8 @@ export default function Home() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoriesLoading, setCategoriesLoading] = useState(true);
+  const [heroBanner, setHeroBanner] = useState<any>(null);
+  const [bannerLoading, setBannerLoading] = useState(true);
 
   useEffect(() => {
     const fetchFeaturedProducts = async () => {
@@ -36,8 +38,20 @@ export default function Home() {
       }
     };
 
+    const fetchHeroBanner = async () => {
+      try {
+        const response = await api.get('/api/hero-banners/active');
+        setHeroBanner(response.data);
+      } catch (error) {
+        console.error('Failed to fetch hero banner:', error);
+      } finally {
+        setBannerLoading(false);
+      }
+    };
+
     fetchFeaturedProducts();
     fetchCategories();
+    fetchHeroBanner();
   }, []);
 
   return (
@@ -45,18 +59,46 @@ export default function Home() {
 
       {/* Hero Section */}
       <div className="relative min-h-[600px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-100/20 via-secondary-100/20 to-accent-100/20"></div>
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxIDAgNiAyLjY5IDYgNnMtMi42OSA2LTYgNi02LTIuNjktNi02IDIuNjktNiA2LTZ6TTE4IDM2YzMuMzEgMCA2IDIuNjkgNiA2cy0yLjY5IDYtNiA2LTYtMi42OS02LTYgMi42OS02IDYtNnoiIGZpbGw9IiNmZmYiIG9wYWNpdHk9IjAuMSIvPjwvZz48L3N2Zz4=')] opacity-30"></div>
+        {/* Background Image or Gradient */}
+        {heroBanner && heroBanner.image_url && !bannerLoading ? (
+          <>
+            <div className="absolute inset-0">
+              <Image
+                src={heroBanner.image_url}
+                alt={heroBanner.title || 'Hero Banner'}
+                fill
+                className="object-cover"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/30 to-black/40"></div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="absolute inset-0 bg-gradient-to-br from-primary-100/20 via-secondary-100/20 to-accent-100/20"></div>
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxIDAgNiAyLjY5IDYgNnMtMi42OSA2LTYgNi02LTIuNjktNi02IDIuNjktNiA2LTZ6TTE4IDM2YzMuMzEgMCA2IDIuNjkgNiA2cy0yLjY5IDYtNiA2LTYtMi42OS02LTYgMi42OS02IDYtNnoiIGZpbGw9IiNmZmYiIG9wYWNpdHk9IjAuMSIvPjwvZz48L3N2Zz4=')] opacity-30"></div>
+          </>
+        )}
         
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-          <div className="inline-block mb-6 animate-bounce">
-            <SparklesIcon className="h-16 w-16 text-primary-500" />
-          </div>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent">
-            Welcome to Noosh Tuft
+          {!heroBanner || !heroBanner.image_url ? (
+            <div className="inline-block mb-6 animate-bounce">
+              <SparklesIcon className="h-16 w-16 text-primary-500" />
+            </div>
+          ) : null}
+          <h1 className={`text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 ${
+            heroBanner && heroBanner.image_url
+              ? 'text-white drop-shadow-2xl'
+              : 'bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent'
+          }`}>
+            {heroBanner?.title || 'Welcome to Noosh Tuft'}
           </h1>
-          <p className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Handcrafted Tufted & Embroidered Art
+          <p className={`text-xl sm:text-2xl mb-8 max-w-2xl mx-auto ${
+            heroBanner && heroBanner.image_url
+              ? 'text-white drop-shadow-lg'
+              : 'text-gray-600'
+          }`}>
+            {heroBanner?.subtitle || 'Handcrafted Tufted & Embroidered Art'}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
