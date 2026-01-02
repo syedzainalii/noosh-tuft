@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useAuthStore } from '@/store/authStore';
 import { useCartStore } from '@/store/cartStore';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { ShoppingCartIcon, UserIcon, Bars3Icon, XMarkIcon, HeartIcon, SparklesIcon } from '@heroicons/react/24/outline';
 
 export default function Navbar() {
@@ -11,6 +11,7 @@ export default function Navbar() {
   const { items, fetchCart } = useCartStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     fetchUser();
@@ -29,6 +30,28 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    if (mobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = 'unset';
+    };
+  }, [mobileMenuOpen]);
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${
@@ -140,22 +163,45 @@ export default function Navbar() {
               </Link>
             )}
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={() => setMobileMenuOpen(true)}
               className="p-2 rounded-full hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all"
             >
-              {mobileMenuOpen ? (
-                <XMarkIcon className="h-6 w-6 text-gray-700" />
-              ) : (
-                <Bars3Icon className="h-6 w-6 text-gray-700" />
-              )}
+              <Bars3Icon className="h-6 w-6 text-gray-700" />
             </button>
           </div>
         </div>
 
-        {/* Mobile menu */}
+        {/* Mobile menu overlay */}
         {mobileMenuOpen && (
-          <div className="md:hidden pb-4 animate-slide-down">
-            <div className="space-y-2 bg-white/80 backdrop-blur-lg rounded-2xl p-3 mt-2">
+          <div 
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+        )}
+
+        {/* Mobile menu */}
+        <div
+          ref={mobileMenuRef}
+          className={`fixed top-0 right-0 h-full w-[280px] bg-white shadow-2xl z-50 md:hidden transform transition-transform duration-300 ease-in-out ${
+            mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
+        >
+          <div className="flex flex-col h-full">
+            {/* Header */}
+            <div className="flex items-center justify-between p-4 border-b border-gray-200">
+              <h2 className="text-lg font-bold bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent">
+                Menu
+              </h2>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2 rounded-full hover:bg-gray-100 transition-all"
+              >
+                <XMarkIcon className="h-6 w-6 text-gray-700" />
+              </button>
+            </div>
+
+            {/* Menu Items */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-2">
               <Link
                 href="/products"
                 className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 hover:text-primary-600 rounded-xl transition-all font-medium"
@@ -219,7 +265,7 @@ export default function Navbar() {
               )}
             </div>
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );
