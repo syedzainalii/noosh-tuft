@@ -6,7 +6,7 @@ import Navbar from '@/components/Navbar';
 import api from '@/lib/api';
 import { Product } from '@/types';
 import Image from 'next/image';
-import { SparklesIcon, TruckIcon, ShieldCheckIcon, CreditCardIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import { SparklesIcon, TruckIcon, ShieldCheckIcon, CreditCardIcon, ArrowRightIcon, HeartIcon } from '@heroicons/react/24/outline';
 
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
