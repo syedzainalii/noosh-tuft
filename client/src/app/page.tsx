@@ -91,14 +91,14 @@ export default function Home() {
               ? 'text-white drop-shadow-2xl'
               : 'bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent'
           }`}>
-            {heroBanner?.title || 'Welcome to Noosh Tuft'}
+            {heroBanner?.title || ''}
           </h1>
           <p className={`text-xl sm:text-2xl mb-8 max-w-2xl mx-auto ${
             heroBanner && heroBanner.image_url
               ? 'text-white drop-shadow-lg'
               : 'text-gray-600'
           }`}>
-            {heroBanner?.subtitle || 'Handcrafted Tufted & Embroidered Art'}
+            {heroBanner?.subtitle || ''}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
