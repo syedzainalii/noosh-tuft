@@ -6,8 +6,8 @@ import { Toaster } from 'react-hot-toast'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Modern Ecommerce Store',
-  description: 'Shop the latest products with secure checkout',
+  title: 'Noosh Tuft Boutique - Curated with Love',
+  description: 'Discover handpicked treasures that make you sparkle. Premium quality products curated just for you.',
 }
 
 export default function RootLayout({
