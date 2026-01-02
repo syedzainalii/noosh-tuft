@@ -8,7 +8,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import engine, Base
 from routers import auth, products, categories, cart, orders, admin, handcraft_photos, reviews, hero_banners
-from models import User, UserRole
+from models import User, UserRole, HeroBanner
 from auth import get_password_hash
 from config import settings
 from sqlalchemy.orm import Session
