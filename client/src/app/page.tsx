@@ -58,7 +58,7 @@ export default function Home() {
     <div className="min-h-screen">
 
       {/* Hero Section */}
-      <div className="relative h-[600px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50">
+      <div className="relative h-[800px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50">
         {/* Background Image or Gradient */}
         {heroBanner && heroBanner.image_url && !bannerLoading ? (
           <>
