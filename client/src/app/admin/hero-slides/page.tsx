@@ -79,9 +79,10 @@ export default function AdminHeroSlidesPage() {
       }
       fetchSlides();
       closeModal();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving slide:', error);
-      toast.error('Failed to save slide');
+      const errorMessage = error.response?.data?.detail || error.message || 'Failed to save slide';
+      toast.error(errorMessage);
     }
   };
 
