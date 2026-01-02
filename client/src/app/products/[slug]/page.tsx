@@ -8,6 +8,9 @@ import { useCartStore } from '@/store/cartStore';
 import { useAuthStore } from '@/store/authStore';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
+import ReviewForm from '@/components/ReviewForm';
+import ReviewList from '@/components/ReviewList';
+import StarRating from '@/components/StarRating';
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -15,6 +18,8 @@ export default function ProductDetailPage() {
   const [product, setProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
+  const [reviewRefresh, setReviewRefresh] = useState(0);
+  const [showReviewForm, setShowReviewForm] = useState(false);
   const { addToCart } = useCartStore();
   const { isAuthenticated } = useAuthStore();
 
@@ -159,6 +164,58 @@ export default function ProductDetailPage() {
                 </button>
               </div>
             )}
+          </div>
+        </div>
+
+        {/* Reviews Section */}
+        <div className="mt-16">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Review Form */}
+            <div className="lg:col-span-1">
+              {isAuthenticated ? (
+                showReviewForm ? (
+                  <ReviewForm
+                    productId={product.id}
+                    onSuccess={() => {
+                      setReviewRefresh(prev => prev + 1);
+                      setShowReviewForm(false);
+                    }}
+                  />
+                ) : (
+                  <div className="card text-center">
+                    <div className="text-5xl mb-4">✍️</div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">Share Your Experience</h3>
+                    <p className="text-gray-600 mb-6">Have you used this product? Let others know what you think!</p>
+                    <button
+                      onClick={() => setShowReviewForm(true)}
+                      className="btn-primary w-full"
+                    >
+                      ✨ Write a Review
+                    </button>
+                  </div>
+                )
+              ) : (
+                <div className="card text-center">
+                  <div className="text-5xl mb-4">🔐</div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">Sign in to Review</h3>
+                  <p className="text-gray-600 mb-6">Please log in to share your thoughts about this product</p>
+                  <button
+                    onClick={() => router.push('/login')}
+                    className="btn-primary w-full"
+                  >
+                    Sign In
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Reviews List */}
+            <div className="lg:col-span-2">
+              <ReviewList 
+                productId={product.id} 
+                refreshTrigger={reviewRefresh}
+              />
+            </div>
           </div>
         </div>
       </div>
