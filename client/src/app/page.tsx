@@ -82,7 +82,7 @@ export default function Home() {
     <div className="min-h-screen">
 
       {/* Hero Section - Slideshow */}
-      <div className="relative h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50">
+       <div className="relative h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50">
         {/* Slideshow Images */}
         {heroBanners.length > 0 && !bannerLoading ? (
           <>
