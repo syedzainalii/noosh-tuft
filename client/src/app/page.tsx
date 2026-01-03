@@ -333,7 +333,7 @@ export default function Home() {
           <div className="inline-block mb-4">
             <span className="text-6xl">✨</span>
           </div>
-          <h2 className="section-title">Trending Now</h2>
+          <h2 className="section-title">Featured Collection</h2>
           <p className="section-subtitle">Our most loved pieces, curated just for you</p>
         </div>
         
@@ -442,8 +442,8 @@ export default function Home() {
               <div className="w-20 h-20 bg-gradient-to-br from-accent-400 via-primary-400 to-secondary-400 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-all duration-300 shadow-glow">
                 <CreditCardIcon className="h-10 w-10 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 gradient-text">Secure Checkout</h3>
-              <p className="text-gray-600 leading-relaxed">Safe and easy payment processing</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 gradient-text">Personalized Handcrafts</h3>
+              <p className="text-gray-600 leading-relaxed">Custom designs made with love and care</p>
             </div>
           </div>
         </div>

@@ -75,40 +75,40 @@ export default function Navbar() {
                 <span className="hidden sm:block text-[9px] text-gray-400 font-medium tracking-wide -mt-1 max-w-[180px]">Tufted & Embroidered Handcrafts</span>
               </div>
             </Link>
+          </div>
             
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex ml-12 space-x-2">
-              <Link 
-                href="/" 
-                className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
-              >
-                Home
-              </Link>
-              <Link 
-                href="/handcrafts" 
-                className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
-              >
-                Our Handcrafts
-              </Link>
-              <Link 
-                href="/products" 
-                className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
-              >
-                Shop All
-              </Link>
-              <Link 
-                href="/categories" 
-                className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
-              >
-                Categories
-              </Link>
-              <Link 
-                href="/about" 
-                className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
-              >
-                About Us
-              </Link>
-            </div>
+          {/* Desktop Navigation - Centered */}
+          <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-2">
+            <Link 
+              href="/" 
+              className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
+            >
+              Home
+            </Link>
+            <Link 
+              href="/products" 
+              className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
+            >
+              Shop All
+            </Link>
+            <Link 
+              href="/categories" 
+              className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
+            >
+              Categories
+            </Link>
+            <Link 
+              href="/handcrafts" 
+              className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
+            >
+              Handcraft Ideas
+            </Link>
+            <Link 
+              href="/about" 
+              className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
+            >
+              About Us
+            </Link>
           </div>
 
           {/* Desktop Actions */}
@@ -234,13 +234,6 @@ export default function Navbar() {
                 🏠 Home
               </Link>
               <Link
-                href="/handcrafts"
-                className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 hover:text-primary-600 rounded-xl transition-all font-medium"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                ✨ Our Handcrafts
-              </Link>
-              <Link
                 href="/products"
                 className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 hover:text-primary-600 rounded-xl transition-all font-medium"
                 onClick={() => setMobileMenuOpen(false)}
@@ -253,6 +246,13 @@ export default function Navbar() {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 🎨 Categories
+              </Link>
+              <Link
+                href="/handcrafts"
+                className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 hover:text-primary-600 rounded-xl transition-all font-medium"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                ✨ Handcraft Ideas
               </Link>
               <Link
                 href="/about"
