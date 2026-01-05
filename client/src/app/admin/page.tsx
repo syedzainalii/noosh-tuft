@@ -190,7 +190,7 @@ export default function AdminDashboard() {
               </div>
             </Link>
             <Link href="/admin/handcrafts" className="group">
-              <div className="p-6 rounded-xl bg-gradient-to-br from-pink-50 to-pink-100 border-2 border-pink-200 hover:border-pink-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+              <div className="p-6 rounded-xl bg-gradient-to-br from-accent-50 to-accent-100 border-2 border-accent-200 hover:border-accent-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                 <div className="text-pink-600 font-bold text-lg mb-2 group-hover:text-pink-700">🧵 Handcrafts</div>
                 <p className="text-sm text-gray-600">Process photos</p>
               </div>
