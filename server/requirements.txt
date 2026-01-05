@@ -13,3 +13,4 @@ python-dotenv==1.0.0
 fastapi-mail==1.4.1
 redis==5.0.1
 pillow==10.2.0
+APScheduler==3.10.4

@@ -1,26 +1,82 @@
 import sys
 from pathlib import Path
+from contextlib import asynccontextmanager
 
 # Add parent directory to Python path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from database import engine, Base
-from routers import auth, products, categories, cart, orders, admin, handcraft_photos, reviews, hero_banners, about
-from models import User, UserRole, HeroBanner, AboutPage
+
+from database import engine, Base, SessionLocal
+from routers import (
+    auth,
+    products,
+    categories,
+    cart,
+    orders,
+    admin,
+    handcraft_photos,
+    reviews,
+    hero_banners,
+    about,
+)
+
+from models import User, UserRole
 from auth import get_password_hash
 from config import settings
-from sqlalchemy.orm import Session
-from database import SessionLocal
+
+# ✅ Scheduler imports
+from scheduler import start_scheduler, shutdown_scheduler
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
 
+
+# ✅ Lifespan handler (replaces startup/shutdown events)
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Application lifespan handler"""
+
+    # 🔹 Startup logic
+    start_scheduler()
+
+    db = SessionLocal()
+    try:
+        admin_user = db.query(User).filter(
+            User.email == settings.ADMIN_EMAIL
+        ).first()
+
+        if not admin_user:
+            admin_user = User(
+                email=settings.ADMIN_EMAIL,
+                full_name="Admin User",
+                hashed_password=get_password_hash(settings.ADMIN_PASSWORD),
+                role=UserRole.ADMIN,
+                is_active=True,
+                is_verified=True,
+            )
+            db.add(admin_user)
+            db.commit()
+            print(f"✅ Admin user created: {settings.ADMIN_EMAIL}")
+        else:
+            print("ℹ️ Admin user already exists")
+
+    finally:
+        db.close()
+
+    yield  # 🚀 Application runs here
+
+    # 🔹 Shutdown logic
+    shutdown_scheduler()
+
+
+# ✅ FastAPI app with lifespan
 app = FastAPI(
     title="Ecommerce API",
     description="Modern ecommerce backend with authentication and admin dashboard",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan,
 )
 
 # CORS middleware
@@ -29,7 +85,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "https://noosh-tuft.vercel.app",
-        settings.FRONTEND_URL
+        settings.FRONTEND_URL,
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -49,34 +105,12 @@ app.include_router(hero_banners.router)
 app.include_router(about.router)
 
 
-@app.on_event("startup")
-async def startup_event():
-    """Create default admin user if not exists"""
-    db = SessionLocal()
-    try:
-        admin_user = db.query(User).filter(User.email == settings.ADMIN_EMAIL).first()
-        if not admin_user:
-            admin_user = User(
-                email=settings.ADMIN_EMAIL,
-                full_name="Admin User",
-                hashed_password=get_password_hash(settings.ADMIN_PASSWORD),
-                role=UserRole.ADMIN,
-                is_active=True,
-                is_verified=True
-            )
-            db.add(admin_user)
-            db.commit()
-            print(f"Admin user created: {settings.ADMIN_EMAIL}")
-    finally:
-        db.close()
-
-
 @app.get("/")
 def read_root():
     return {
         "message": "Welcome to Ecommerce API",
         "version": "1.0.0",
-        "docs": "/docs"
+        "docs": "/docs",
     }
 
 
@@ -87,4 +121,10 @@ def health_check():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=True,
+    )
