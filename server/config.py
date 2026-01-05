@@ -18,10 +18,10 @@ class Settings(BaseSettings):
     MAIL_FROM: str
     MAIL_PORT: int = 587
     MAIL_SERVER: str
-    MAIL_FROM_NAME: str = "Ecommerce Store"
+    MAIL_FROM_NAME: str = "Noosh Tuft"
     
     # Frontend
-    FRONTEND_URL: str = "http://localhost:3000"
+    FRONTEND_URL: str 
     
     # Admin
     ADMIN_EMAIL: str

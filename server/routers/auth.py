@@ -10,12 +10,19 @@ from auth import (
     get_current_user, get_current_active_user
 )
 from email_service import send_verification_email, send_password_reset_email
+import logging
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/auth", tags=["Authentication"])
 
 
 @router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 async def register(user_data: UserCreate, db: Session = Depends(get_db)):
+    """Register a new user and send verification email"""
+    
     # Check if user already exists
     existing_user = db.query(User).filter(User.email == user_data.email).first()
     if existing_user:
@@ -26,6 +33,8 @@ async def register(user_data: UserCreate, db: Session = Depends(get_db)):
     
     # Create verification token
     verification_token = create_verification_token()
+    logger.info(f"Creating new user with email: {user_data.email}")
+    logger.info(f"Verification token: {verification_token}")
     
     # Create new user
     new_user = User(
@@ -42,11 +51,17 @@ async def register(user_data: UserCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_user)
     
+    logger.info(f"User created successfully: {new_user.id}")
+    
     # Send verification email
     try:
         await send_verification_email(new_user.email, verification_token)
+        logger.info(f"Verification email sent to {new_user.email}")
     except Exception as e:
-        print(f"Failed to send verification email: {str(e)}")
+        logger.error(f"Failed to send verification email: {str(e)}")
+        # Don't fail registration if email fails, but log the error
+        # The user can request a resend later
+        logger.warning(f"User registered but verification email failed for {new_user.email}")
     
     return new_user
 
@@ -56,6 +71,7 @@ async def login(
     form_data: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(get_db)
 ):
+    """Login user and return access token"""
     user = db.query(User).filter(User.email == form_data.username).first()
     
     if not user or not verify_password(form_data.password, user.hashed_password):
@@ -83,9 +99,13 @@ async def login(
 
 @router.post("/verify-email")
 async def verify_email(token: str, db: Session = Depends(get_db)):
+    """Verify user email with token"""
+    logger.info(f"Verifying email with token: {token}")
+    
     user = db.query(User).filter(User.verification_token == token).first()
     
     if not user:
+        logger.error(f"Invalid verification token: {token}")
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid verification token"
@@ -95,11 +115,13 @@ async def verify_email(token: str, db: Session = Depends(get_db)):
     user.verification_token = None
     db.commit()
     
+    logger.info(f"Email verified successfully for user: {user.email}")
     return {"message": "Email verified successfully"}
 
 
 @router.post("/resend-verification")
 async def resend_verification(email: str, db: Session = Depends(get_db)):
+    """Resend verification email"""
     user = db.query(User).filter(User.email == email).first()
     
     if not user:
@@ -120,10 +142,12 @@ async def resend_verification(email: str, db: Session = Depends(get_db)):
     
     try:
         await send_verification_email(user.email, verification_token)
+        logger.info(f"Verification email resent to {user.email}")
     except Exception as e:
+        logger.error(f"Failed to resend verification email: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to send verification email"
+            detail=f"Failed to send verification email: {str(e)}"
         )
     
     return {"message": "Verification email sent"}
@@ -131,6 +155,7 @@ async def resend_verification(email: str, db: Session = Depends(get_db)):
 
 @router.post("/forgot-password")
 async def forgot_password(data: PasswordReset, db: Session = Depends(get_db)):
+    """Send password reset email"""
     user = db.query(User).filter(User.email == data.email).first()
     
     if not user:
@@ -143,14 +168,16 @@ async def forgot_password(data: PasswordReset, db: Session = Depends(get_db)):
     
     try:
         await send_password_reset_email(user.email, reset_token)
+        logger.info(f"Password reset email sent to {user.email}")
     except Exception as e:
-        print(f"Failed to send password reset email: {str(e)}")
+        logger.error(f"Failed to send password reset email: {str(e)}")
     
     return {"message": "If the email exists, a reset link will be sent"}
 
 
 @router.post("/reset-password")
 async def reset_password(data: PasswordResetConfirm, db: Session = Depends(get_db)):
+    """Reset password with token"""
     user = db.query(User).filter(User.reset_token == data.token).first()
     
     if not user:
@@ -163,16 +190,19 @@ async def reset_password(data: PasswordResetConfirm, db: Session = Depends(get_d
     user.reset_token = None
     db.commit()
     
+    logger.info(f"Password reset successfully for user: {user.email}")
     return {"message": "Password reset successfully"}
 
 
 @router.get("/me", response_model=UserResponse)
 async def get_me(current_user: User = Depends(get_current_active_user)):
+    """Get current user details"""
     return current_user
 
 
 @router.post("/refresh", response_model=Token)
 async def refresh_token(refresh_token: str, db: Session = Depends(get_db)):
+    """Refresh access token"""
     payload = decode_token(refresh_token)
     
     if payload is None or payload.get("type") != "refresh":
