@@ -89,7 +89,7 @@ export default function Navbar() {
               href="/products" 
               className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
             >
-              Collections
+              Catalog
             </Link>
             <Link 
               href="/handcrafts" 
@@ -232,7 +232,7 @@ export default function Navbar() {
                 className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 hover:text-primary-600 rounded-xl transition-all font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                🛍️ Collections
+                🛍️ Catalog
               </Link>
 
               <Link
