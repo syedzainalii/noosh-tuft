@@ -5,10 +5,7 @@ import Link from 'next/link';
 import api from '@/lib/api';
 import { Product, Category } from '@/types';
 import Image from 'next/image';
-import { SparklesIcon, TruckIcon, ShieldCheckIcon, CreditCardIcon, ArrowRightIcon, HeartIcon, BoltIcon, RocketLaunchIcon, CodeBracketIcon, DevicePhoneMobileIcon, CubeTransparentIcon } from '@heroicons/react/24/outline';
-import { motion } from 'framer-motion';
-import AdvancedBackground from '@/components/AdvancedBackground';
-import PackagesSection from '@/components/PackagesSection';
+import { SparklesIcon, TruckIcon, ShieldCheckIcon, CreditCardIcon, ArrowRightIcon, HeartIcon } from '@heroicons/react/24/outline';
 
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
@@ -82,31 +79,19 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen relative">
-      {/* Advanced Interactive Background */}
-      <AdvancedBackground />
-      
-      {/* Scanline Effect */}
-      <div className="scanlines"></div>
+    <div className="min-h-screen">
 
-      {/* Hero Section - Ultra Modern */}
-      <div className="relative min-h-screen flex items-center justify-center overflow-hidden"
-           style={{ 
-             background: 'radial-gradient(circle at 30% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 60%), radial-gradient(circle at 70% 30%, rgba(160, 32, 240, 0.2) 0%, transparent 60%)'
-           }}>
+      {/* Hero Section - Slideshow */}
+       <div className="relative h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50">
         {/* Slideshow Images */}
         {heroBanners.length > 0 && !bannerLoading ? (
           <>
             {heroBanners.map((banner, index) => (
-              <motion.div
+              <div
                 key={banner.id}
-                initial={{ opacity: 0, scale: 1.1 }}
-                animate={{ 
-                  opacity: index === currentSlide ? 1 : 0,
-                  scale: index === currentSlide ? 1 : 1.1
-                }}
-                transition={{ duration: 1 }}
-                className="absolute inset-0"
+                className={`absolute inset-0 transition-opacity duration-1000 ${
+                  index === currentSlide ? 'opacity-100' : 'opacity-0'
+                }`}
               >
                 <Image
                   src={banner.image_url}
@@ -115,136 +100,35 @@ export default function Home() {
                   className="object-cover"
                   priority={index === 0}
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60"></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent"></div>
-              </motion.div>
+                <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-black/5 to-black/10"></div>
+              </div>
             ))}
           </>
         ) : (
           <>
-            <div className="absolute inset-0 cyber-grid"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-primary-100/20 via-secondary-100/20 to-accent-100/20"></div>
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxIDAgNiAyLjY5IDYgNnMtMi42OSA2LTYgNi02LTIuNjktNi02IDIuNjktNiA2LTZ6TTE4IDM2YzMuMzEgMCA2IDIuNjkgNiA2cy0yLjY5IDYtNiA2LTYtMi42OS02LTYgMi42OS02IDYtNnoiIGZpbGw9IiNmZmYiIG9wYWNpdHk9IjAuMSIvPjwvZz48L3N2Zz4=')] opacity-30"></div>
           </>
         )}
         
         {/* Content Overlay */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto"
-        >
+        <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
           {heroBanners.length === 0 ? (
-            <>
-              {/* Floating badge */}
-              <motion.div 
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ duration: 0.8, delay: 0.3, type: "spring" }}
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/50 mb-8 backdrop-blur-xl relative overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 animate-pulse"></div>
-                <CodeBracketIcon className="h-8 w-8 text-cyan-400 relative z-10" />
-                <span className="text-cyan-400 font-bold uppercase text-lg tracking-wider relative z-10">Premium Web Development</span>
-              </motion.div>
-
-              {/* Main headline with 3D effect */}
-              <motion.h1 
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.5 }}
-                className="text-6xl sm:text-7xl lg:text-9xl font-black mb-8 leading-tight relative"
-                style={{ 
-                  textShadow: '0 0 80px rgba(0, 255, 255, 0.5), 0 0 30px rgba(160, 32, 240, 0.5)'
-                }}
-              >
-                <span className="gradient-text block">Build Your</span>
-                <span className="gradient-text block">Digital Empire</span>
-              </motion.h1>
-
-              {/* Subheadline */}
-              <motion.p 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 0.8 }}
-                className="text-2xl sm:text-3xl lg:text-4xl mb-16 max-w-4xl mx-auto text-text-secondary font-light"
-              >
-                Custom websites that don't just look amazing — they <span className="text-cyan-400 font-bold">dominate</span> your market
-              </motion.p>
-
-              {/* CTA Buttons with hover effects */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.1 }}
-                className="flex gap-6 justify-center flex-wrap"
-              >
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Link href="#packages" className="btn-primary text-xl px-12 py-6 flex items-center gap-3 relative overflow-hidden group">
-                    <span className="relative z-10">View Packages</span>
-                    <RocketLaunchIcon className="h-7 w-7 relative z-10 group-hover:translate-x-2 transition-transform" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                  </Link>
-                </motion.div>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Link href="#portfolio" className="btn-secondary text-xl px-12 py-6 flex items-center gap-3">
-                    <CubeTransparentIcon className="h-7 w-7" />
-                    <span>See Our Work</span>
-                  </Link>
-                </motion.div>
-              </motion.div>
-
-              {/* Stats bar */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.4 }}
-                className="mt-24 flex gap-12 justify-center flex-wrap"
-              >
-                {[
-                  { number: "500+", label: "Websites Built" },
-                  { number: "98%", label: "Client Satisfaction" },
-                  { number: "24/7", label: "Support Available" }
-                ].map((stat, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 0.5, delay: 1.6 + index * 0.1 }}
-                    className="text-center"
-                  >
-                    <div className="text-4xl sm:text-5xl font-black gradient-text mb-2">{stat.number}</div>
-                    <div className="text-text-tertiary text-sm uppercase tracking-wider">{stat.label}</div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </>
-          ) : (
-            <>
-              {heroBanners[currentSlide]?.title && (
-                <motion.h1 
-                  key={`title-${currentSlide}`}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                  className="text-6xl sm:text-7xl lg:text-8xl font-black mb-8 text-white drop-shadow-2xl neon-text"
-                >
-                  {heroBanners[currentSlide].title}
-                </motion.h1>
-              )}
-              {heroBanners[currentSlide]?.subtitle && (
-                <motion.p 
-                  key={`subtitle-${currentSlide}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className="text-2xl sm:text-3xl mb-12 max-w-3xl mx-auto text-white/90 drop-shadow-lg"
-                >
-                  {heroBanners[currentSlide].subtitle}
-                </motion.p>
-              )}
-            </>
+            <div className="inline-block mb-6 animate-bounce">
+              <SparklesIcon className="h-16 w-16 text-primary-500" />
+            </div>
+          ) : null}
+          {heroBanners[currentSlide]?.title && (
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 transition-all duration-500 text-white drop-shadow-2xl">
+              {heroBanners[currentSlide].title}
+            </h1>
           )}
-        </motion.div>
+          {heroBanners[currentSlide]?.subtitle && (
+            <p className="text-xl sm:text-2xl mb-8 max-w-2xl mx-auto transition-all duration-500 text-white drop-shadow-lg">
+              {heroBanners[currentSlide].subtitle}
+            </p>
+          )}
+        </div>
 
         {/* Navigation Arrows */}
         {heroBanners.length > 1 && (
@@ -289,324 +173,305 @@ export default function Home() {
         )}
       </div>
 
-      {/* Our Process - Web Development */}
-      <div className="relative py-32 overflow-hidden" id="portfolio">
-        {/* Background effects */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/5 to-transparent"></div>
-        
-        <div className="max-w-7xl mx-auto relative z-10">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-20 px-4 sm:px-6 lg:px-8"
-          >
-            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border border-cyan-500/30 mb-6">
-              <CodeBracketIcon className="h-8 w-8 text-cyan-400" />
+      {/* Polaroid Showcase - Crafting Process */}
+      <div className="relative bg-gradient-to-b from-white/90 to-pearl-50/90 backdrop-blur-sm py-24 overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 px-4 sm:px-6 lg:px-8">
+            <div className="inline-block mb-4">
+              <span className="text-5xl">🧵</span>
             </div>
-            <h2 className="section-title">Our Development Process</h2>
-            <p className="section-subtitle">From concept to launch - perfected</p>
-          </motion.div>
-
-          {/* Process Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-4 sm:px-6 lg:px-8">
-            {[
-              { 
-                icon: <CodeBracketIcon className="h-16 w-16" />,
-                title: "1. Strategy & Planning",
-                description: "Deep dive into your goals, audience, and competition to craft the perfect roadmap"
-              },
-              { 
-                icon: <CubeTransparentIcon className="h-16 w-16" />,
-                title: "2. Design & Prototype",
-                description: "Stunning designs that captivate users and convert visitors into customers"
-              },
-              { 
-                icon: <BoltIcon className="h-16 w-16" />,
-                title: "3. Development",
-                description: "Clean, fast, and scalable code built with cutting-edge technologies"
-              },
-              { 
-                icon: <RocketLaunchIcon className="h-16 w-16" />,
-                title: "4. Launch & Optimize",
-                description: "Deploy with confidence and continuously improve performance"
-              }
-            ].map((step, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -10 }}
-              >
-                <div className="card-holo h-full p-8 text-center relative group">
-                  {/* Number badge */}
-                  <div className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br from-cyan-500 to-purple-500 rounded-full flex items-center justify-center font-black text-white text-lg glow-cyan">
-                    {index + 1}
-                  </div>
-                  
-                  {/* Icon with glow effect */}
-                  <div className="mb-6 text-cyan-400 flex justify-center group-hover:scale-110 transition-transform duration-300">
-                    {step.icon}
-                  </div>
-                  
-                  {/* Title */}
-                  <h3 className="text-xl font-bold gradient-text mb-4">
-                    {step.title}
-                  </h3>
-                  
-                  {/* Description */}
-                  <p className="text-text-secondary leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+            <h2 className="section-title">Welcome to Noosh Tufts</h2>
+            <p className="section-subtitle">Tufted Designs Handcrafted with Love</p>
           </div>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            viewport={{ once: true }}
-            className="text-center mt-20 px-4 sm:px-6 lg:px-8"
-          >
-            <p className="text-text-secondary italic text-xl mb-8">
-              Every website is a masterpiece of code, design, and performance ⚡
+          {/* Polaroid Cards Carousel */}
+          <div className="relative">
+            <div className="flex gap-8 overflow-x-auto pb-12 px-8 scrollbar-hide snap-x snap-mandatory"
+                 style={{scrollPaddingLeft: '2rem', scrollPaddingRight: '2rem'}}>
+              {/* Polaroid Card 1 */}
+              <div className="flex-shrink-0 w-80 snap-center">
+                <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:-rotate-2 hover:scale-105" style={{transform: 'rotate(-3deg)'}}>
+                  <div className="relative h-80 bg-gradient-to-br from-primary-50 to-secondary-50 mb-4 overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center text-primary-300">
+                      <span className="text-6xl">🎨</span>
+                    </div>
+                  </div>
+                  <div className="text-center font-handwriting text-gray-700 text-lg">
+                    Sketching the design
+                  </div>
+                </div>
+              </div>
+
+              {/* Polaroid Card 3 */}
+              <div className="flex-shrink-0 w-80 snap-center">
+                <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:-rotate-1 hover:scale-105" style={{transform: 'rotate(-1deg)'}}>
+                  <div className="relative h-80 bg-gradient-to-br from-accent-50 to-primary-50 mb-4 overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center text-accent-300">
+                      <span className="text-6xl">🧶</span>
+                    </div>
+                  </div>
+                  <div className="text-center font-handwriting text-gray-700 text-lg">
+                    Tufting magic begins
+                  </div>
+                </div>
+              </div>
+
+              {/* Polaroid Card 2 */}
+              <div className="flex-shrink-0 w-80 snap-center">
+                <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:rotate-2 hover:scale-105" style={{transform: 'rotate(2deg)'}}>
+                  <div className="relative h-80 bg-gradient-to-br from-secondary-50 to-accent-50 mb-4 overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center text-secondary-300">
+                      <span className="text-6xl">✂️</span>
+                    </div>
+                  </div>
+                  <div className="text-center font-handwriting text-gray-700 text-lg">
+                    Cutting the fabric
+                  </div>
+                </div>
+              </div>
+
+              {/* Polaroid Card 4 */}
+              <div className="flex-shrink-0 w-80 snap-center">
+                <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:rotate-3 hover:scale-105" style={{transform: 'rotate(1deg)'}}>
+                  <div className="relative h-80 bg-gradient-to-br from-primary-50 to-accent-50 mb-4 overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center text-primary-300">
+                      <span className="text-6xl">✨</span>
+                    </div>
+                  </div>
+                  <div className="text-center font-handwriting text-gray-700 text-lg">
+                    Adding final touches
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-12 px-4 sm:px-6 lg:px-8">
+            <p className="text-gray-600 italic text-lg">
+              Each piece tells a story of dedication and craftsmanship 💝
             </p>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link href="#packages" className="btn-primary inline-flex items-center gap-3">
-                <span>Start Your Project</span>
-                <ArrowRightIcon className="h-5 w-5" />
-              </Link>
-            </motion.div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
-      {/* Packages Section */}
-      <div id="packages">
-        <PackagesSection />
+      {/* Categories Section */}
+      <div className="relative bg-white/80 backdrop-blur-sm py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4">
+              <span className="text-5xl">🎀</span>
+            </div>
+            <h2 className="section-title">Explore Our Crafts</h2>
+            <p className="section-subtitle">Discover different styles of handmade artistry</p>
+          </div>
+
+          {categoriesLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="card animate-pulse">
+                  <div className="bg-gradient-to-br from-gray-200 to-gray-300 h-48 rounded-2xl mb-4"></div>
+                  <div className="bg-gray-300 h-6 rounded-lg w-3/4 mb-2"></div>
+                  <div className="bg-gray-200 h-4 rounded-lg w-full"></div>
+                </div>
+              ))}
+            </div>
+          ) : categories.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {categories.map((category, index) => (
+                <Link
+                  key={category.id}
+                  href={`/products?category=${category.slug}`}
+                  className="group"
+                  style={{animationDelay: `${index * 0.1}s`}}
+                >
+                  <div className="card hover:shadow-glow cursor-pointer overflow-hidden">
+                    <div className="relative h-48 mb-5 bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 rounded-2xl overflow-hidden">
+                      {category.image_url ? (
+                        <Image
+                          src={category.image_url}
+                          alt={category.name}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center text-primary-300">
+                          <HeartIcon className="h-16 w-16" />
+                        </div>
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute bottom-0 left-0 right-0 p-4 text-white font-bold text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center">
+                        Explore →
+                      </div>
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-primary-500 group-hover:to-secondary-500 group-hover:bg-clip-text transition-all text-center">
+                      {category.name}
+                    </h3>
+                    {category.description && (
+                      <p className="text-gray-500 text-sm text-center leading-relaxed line-clamp-2">
+                        {category.description}
+                      </p>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary-100 via-secondary-100 to-accent-100 rounded-full mb-6 shadow-dreamy">
+                <span className="text-4xl">🎨</span>
+              </div>
+              <p className="text-xl text-gray-600 mb-6 font-medium">No categories yet</p>
+              <p className="text-gray-500">Check back soon for our handcraft collections!</p>
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Testimonials Section */}
-      <div className="relative py-32 overflow-hidden">
-        {/* Glowing gradient orbs */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+      {/* Featured Products */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="text-center mb-20">
+          <div className="inline-block mb-4">
+            <span className="text-6xl">✨</span>
+          </div>
+          <h2 className="section-title">Featured Collection</h2>
+          <p className="section-subtitle">Our most loved pieces, curated just for you</p>
+        </div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <div className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-500/20 to-purple-500/20 border border-pink-500/50 mb-8">
-              <SparklesIcon className="h-8 w-8 text-pink-400" />
-            </div>
-            <h2 className="section-title">Client Success Stories</h2>
-            <p className="section-subtitle">Real results from real businesses</p>
-          </motion.div>
-
-          {/* Testimonial Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Sarah Johnson",
-                company: "TechStart Inc",
-                role: "CEO",
-                image: "👩‍💼",
-                quote: "NexGen Web transformed our online presence completely. Our conversion rate tripled within the first month!",
-                rating: 5
-              },
-              {
-                name: "Michael Chen",
-                company: "Digital Innovators",
-                role: "Marketing Director",
-                image: "👨‍💻",
-                quote: "The attention to detail and cutting-edge design exceeded all expectations. Best investment we've made.",
-                rating: 5
-              },
-              {
-                name: "Emma Rodriguez",
-                company: "Global Solutions",
-                role: "Founder",
-                image: "👩‍🚀",
-                quote: "Professional, innovative, and incredibly responsive. They turned our vision into reality and beyond.",
-                rating: 5
-              }
-            ].map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -10 }}
+        {isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="card animate-pulse">
+                <div className="bg-gradient-to-br from-gray-200 to-gray-300 h-64 rounded-xl mb-4"></div>
+                <div className="bg-gray-300 h-6 rounded-lg w-3/4 mb-3"></div>
+                <div className="bg-gray-200 h-4 rounded-lg w-full mb-2"></div>
+                <div className="bg-gray-200 h-4 rounded-lg w-2/3"></div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredProducts.map((product, index) => (
+              <Link 
+                key={product.id} 
+                href={`/products/${product.slug}`}
+                className="group"
+                style={{animationDelay: `${index * 0.1}s`}}
               >
-                <div className="card-holo h-full p-8 relative">
-                  {/* Quote marks */}
-                  <div className="text-6xl text-cyan-400/30 font-serif absolute top-4 left-4">"</div>
-                  
-                  {/* Stars */}
-                  <div className="flex gap-1 mb-6 justify-center">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <span key={i} className="text-yellow-400 text-xl">★</span>
-                    ))}
+                <div className="card hover:shadow-glow cursor-pointer overflow-hidden group-hover:border-primary-200">
+                  <div className="relative h-72 mb-5 bg-gradient-to-br from-primary-50 to-secondary-50 rounded-2xl overflow-hidden">
+                    {product.image_url ? (
+                      <Image
+                        src={product.image_url}
+                        alt={product.name}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                    ) : (
+                      <div className="flex items-center justify-center h-full text-primary-300">
+                        <HeartIcon className="h-20 w-20" />
+                      </div>
+                    )}
+                    {product.compare_at_price && (
+                      <div className="absolute top-4 right-4 bg-gradient-to-r from-accent-400 to-accent-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-glow animate-pulse">
+                        💝 Sale
+                      </div>
+                    )}
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/20 to-transparent h-24"></div>
                   </div>
-                  
-                  {/* Quote */}
-                  <p className="text-text-secondary text-lg mb-8 leading-relaxed italic relative z-10">
-                    {testimonial.quote}
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-primary-500 group-hover:to-secondary-500 group-hover:bg-clip-text transition-all leading-tight">
+                    {product.name}
+                  </h3>
+                  <p className="text-gray-500 text-sm mb-5 line-clamp-2 leading-relaxed">
+                    {product.description || 'Discover this amazing product ✨'}
                   </p>
-                  
-                  {/* Author */}
-                  <div className="flex items-center gap-4 border-t border-cyan-500/20 pt-6">
-                    <div className="text-5xl">{testimonial.image}</div>
-                    <div>
-                      <div className="font-bold text-lg gradient-text">{testimonial.name}</div>
-                      <div className="text-text-tertiary text-sm">{testimonial.role}</div>
-                      <div className="text-cyan-400 text-sm font-medium">{testimonial.company}</div>
+                  <div className="flex items-center justify-between mt-auto">
+                    <div className="flex flex-col">
+                      <span className="text-3xl font-black bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent">
+                        ₹{product.price.toFixed(2)}
+                      </span>
+                      {product.compare_at_price && (
+                        <span className="text-gray-400 line-through text-sm font-medium">
+                          ₹{product.compare_at_price.toFixed(2)}
+                        </span>
+                      )}
+                    </div>
+                    <div className="w-12 h-12 bg-gradient-to-br from-primary-400 via-secondary-400 to-accent-400 rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all shadow-lg">
+                      <ArrowRightIcon className="h-6 w-6 text-white" />
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </Link>
             ))}
+          </div>
+        )}
+
+        {!isLoading && featuredProducts.length === 0 && (
+          <div className="text-center py-20">
+            <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-primary-100 via-secondary-100 to-accent-100 rounded-full mb-6 shadow-dreamy">
+              <span className="text-5xl">💝</span>
+            </div>
+            <p className="text-2xl text-gray-600 mb-8 font-medium">No featured products yet</p>
+            <Link href="/products" className="btn-primary">
+              Browse All Products
+            </Link>
+          </div>
+        )}
+      </div>
+
+      {/* Features Section */}
+      <div className="relative bg-gradient-to-b from-pearl-50/50 to-white/50 backdrop-blur-sm py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="card-glass text-center group hover:scale-105">
+              <div className="w-20 h-20 bg-gradient-to-br from-primary-400 via-secondary-400 to-accent-400 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-all duration-300 shadow-glow">
+                <TruckIcon className="h-10 w-10 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 gradient-text">Free Shipping</h3>
+              <p className="text-gray-600 leading-relaxed">Complimentary delivery on all orders over $50</p>
+            </div>
+
+            <div className="card-glass text-center group hover:scale-105">
+              <div className="w-20 h-20 bg-gradient-to-br from-secondary-400 via-accent-400 to-primary-400 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-all duration-300 shadow-glow">
+                <ShieldCheckIcon className="h-10 w-10 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 gradient-text">Premium Quality</h3>
+              <p className="text-gray-600 leading-relaxed">Handpicked items with guaranteed excellence</p>
+            </div>
+
+            <div className="card-glass text-center group hover:scale-105">
+              <div className="w-20 h-20 bg-gradient-to-br from-accent-400 via-primary-400 to-secondary-400 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-all duration-300 shadow-glow">
+                <CreditCardIcon className="h-10 w-10 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 gradient-text">Personalized Handcrafts</h3>
+              <p className="text-gray-600 leading-relaxed">Custom designs made with love and care</p>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Why Choose Us Section */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <div className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-yellow-500/20 to-cyan-500/20 border border-yellow-500/50 mb-8">
-            <BoltIcon className="h-8 w-8 text-yellow-400" />
-          </div>
-          <h2 className="section-title">Why Choose NexGen Web</h2>
-          <p className="section-subtitle">The technology that powers success</p>
-        </motion.div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                icon: <CodeBracketIcon className="h-12 w-12" />,
-                title: "Modern Tech Stack",
-                description: "React, Next.js, TypeScript - we use cutting-edge technologies for lightning-fast, scalable websites"
-              },
-              {
-                icon: <DevicePhoneMobileIcon className="h-12 w-12" />,
-                title: "Mobile-First Design",
-                description: "Every website perfectly optimized for all devices - from phones to 4K displays"
-              },
-              {
-                icon: <BoltIcon className="h-12 w-12" />,
-                title: "Blazing Fast Performance",
-                description: "99+ PageSpeed scores with optimized loading times that keep visitors engaged"
-              },
-              {
-                icon: <ShieldCheckIcon className="h-12 w-12" />,
-                title: "Enterprise Security",
-                description: "Bank-level security protocols to protect your business and customer data"
-              },
-              {
-                icon: <RocketLaunchIcon className="h-12 w-12" />,
-                title: "SEO Optimized",
-                description: "Built-in SEO best practices to rank higher and get discovered by your audience"
-              },
-              {
-                icon: <CubeTransparentIcon className="h-12 w-12" />,
-                title: "Scalable Architecture",
-                description: "Grow from startup to enterprise without rebuilding - our code scales with you"
-              }
-            ].map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -10, scale: 1.02 }}
-              >
-                <div className="card-holo h-full p-8 text-center relative group">
-                  {/* Glow effect on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-purple-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  
-                  {/* Icon */}
-                  <div className="mb-6 text-cyan-400 flex justify-center group-hover:scale-110 transition-transform duration-300 relative z-10">
-                    {feature.icon}
-                  </div>
-                  
-                  {/* Title */}
-                  <h3 className="text-2xl font-bold gradient-text mb-4 relative z-10">
-                    {feature.title}
-                  </h3>
-                  
-                  {/* Description */}
-                  <p className="text-text-secondary leading-relaxed relative z-10">
-                    {feature.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-      </div>
-
 
       {/* CTA Section */}
-      <div className="relative overflow-hidden py-40 mt-20">
-        {/* Animated gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-purple-500/20 to-pink-500/20"></div>
-        <div className="absolute inset-0 cyber-grid opacity-20"></div>
-        
-        {/* Floating orbs */}
-        <div className="absolute inset-0 opacity-40">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1.5s'}}></div>
-          <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500 rounded-full blur-3xl animate-pulse" style={{animationDelay: '0.7s'}}></div>
+      <div className="relative overflow-hidden bg-gradient-to-br from-primary-400 via-secondary-400 to-accent-400 py-28 mt-20">
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-white rounded-full mix-blend-overlay filter blur-3xl animate-float"></div>
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white rounded-full mix-blend-overlay filter blur-3xl animate-float" style={{animationDelay: '1.5s'}}></div>
+          <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-white rounded-full mix-blend-overlay filter blur-3xl animate-float" style={{animationDelay: '0.7s'}}></div>
         </div>
         
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10"
-        >
-          <motion.div 
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="mb-8"
-          >
-            <span className="text-8xl">💖</span>
-          </motion.div>
-          <h2 className="text-6xl md:text-8xl font-black mb-10 leading-tight">
-            <span className="gradient-text">Ready to Dominate Your Market?</span>
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="mb-6">
+            <span className="text-7xl">💖</span>
+          </div>
+          <h2 className="text-5xl md:text-7xl font-black text-white mb-8 leading-tight">
+            Join Our Community
           </h2>
-          <p className="text-2xl md:text-4xl text-text-secondary mb-16 font-light leading-relaxed">
-            Let's build a website that converts visitors into customers ⚡
+          <p className="text-2xl md:text-3xl text-white/95 mb-12 font-light leading-relaxed">
+            Be part of something special. Discover curated treasures daily ✨
           </p>
-          <motion.div
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Link href="#packages" className="inline-flex items-center btn-primary text-xl px-12 py-6 gap-4">
-              <span>Get Started Today</span>
-              <ArrowRightIcon className="h-7 w-7 group-hover:translate-x-2 transition-transform" />
-            </Link>
-          </motion.div>
-        </motion.div>
+          <Link href="/products" className="inline-flex items-center bg-white text-primary-600 px-10 py-5 rounded-full font-black text-xl hover:bg-pearl-50 transition-all duration-300 shadow-2xl hover:shadow-glow transform hover:scale-110 group">
+            Start Shopping
+            <ArrowRightIcon className="h-6 w-6 ml-3 group-hover:translate-x-2 transition-transform" />
+          </Link>
+        </div>
       </div>
     </div>
   );

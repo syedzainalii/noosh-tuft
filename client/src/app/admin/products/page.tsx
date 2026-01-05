@@ -58,7 +58,7 @@ export default function AdminProductsPage() {
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Manage Products</h1>
           <Link href="/admin/products/new" className="btn-primary">
-            ➕ Add New Product
+            Add New Product
           </Link>
         </div>
 

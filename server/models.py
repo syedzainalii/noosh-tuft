@@ -180,23 +180,3 @@ class AboutPage(Base):
     vision = Column(Text, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
-
-
-class Package(Base):
-    __tablename__ = "packages"
-    
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, nullable=False)
-    description = Column(Text, nullable=True)
-    price = Column(Float, nullable=False)
-    duration = Column(String, nullable=True)  # e.g., "per month", "per year"
-    features = Column(Text, nullable=True)  # JSON array of features
-    is_popular = Column(Boolean, default=False)
-    is_active = Column(Boolean, default=True)
-    order_index = Column(Integer, default=0)
-    button_text = Column(String, default="Get Started")
-    button_link = Column(String, nullable=True)
-    icon = Column(String, nullable=True)  # Icon name or emoji
-    color_scheme = Column(String, nullable=True)  # JSON for custom colors
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
-    updated_at = Column(DateTime(timezone=True), onupdate=func.now())

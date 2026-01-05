@@ -3,26 +3,9 @@
 @tailwind utilities;
 
 :root {
-  /* Ultra Next-Gen Dark Theme Colors */
-  --bg-primary: #000000;
-  --bg-secondary: #0a0a0f;
-  --bg-tertiary: #14141f;
-  --bg-glass: rgba(10, 10, 15, 0.8);
-  
-  --accent-cyan: #00ffff;
-  --accent-electric: #0ff;
-  --accent-purple: #a020f0;
-  --accent-pink: #ff0080;
-  --accent-yellow: #ffd700;
-  --accent-blue: #00bfff;
-  
-  --text-primary: #ffffff;
-  --text-secondary: #b4b4c8;
-  --text-tertiary: #6b6b8c;
-  
-  --glow-cyan: rgba(0, 240, 255, 0.5);
-  --glow-purple: rgba(180, 0, 255, 0.5);
-  --glow-pink: rgba(255, 0, 110, 0.5);
+  --foreground-rgb: 30, 30, 30;
+  --background-start-rgb: 255, 250, 253;
+  --background-end-rgb: 254, 247, 251;
 }
 
 * {
@@ -30,263 +13,103 @@
 }
 
 body {
-  color: var(--text-primary);
-  background: var(--bg-primary);
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(135deg, rgb(var(--background-start-rgb)) 0%, rgb(var(--background-end-rgb)) 100%);
   min-height: 100vh;
   position: relative;
-  overflow-x: hidden;
 }
 
-/* Ultra advanced gradient mesh background */
 body::before {
   content: '';
   position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.2) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(160, 32, 240, 0.2) 0%, transparent 50%),
-    radial-gradient(circle at 40% 20%, rgba(255, 0, 128, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 70% 40%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 10% 90%, rgba(0, 191, 255, 0.15) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: 0;
-  animation: meshMove 25s ease-in-out infinite;
-  filter: blur(80px);
-}
-
-/* Dynamic floating orbs */
-body::after {
-  content: '';
-  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    radial-gradient(circle at 90% 10%, rgba(0, 255, 255, 0.4) 0%, transparent 20%),
-    radial-gradient(circle at 10% 90%, rgba(160, 32, 240, 0.4) 0%, transparent 20%),
-    radial-gradient(circle at 50% 50%, rgba(255, 0, 128, 0.3) 0%, transparent 15%);
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(at 20% 30%, rgba(255, 63, 163, 0.08) 0px, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(168, 85, 247, 0.08) 0px, transparent 50%),
+    radial-gradient(at 40% 70%, rgba(244, 63, 94, 0.06) 0px, transparent 50%),
+    radial-gradient(at 90% 80%, rgba(255, 107, 189, 0.07) 0px, transparent 50%);
   pointer-events: none;
   z-index: 0;
-  opacity: 0.4;
-  animation: orbFloat 18s ease-in-out infinite;
-  filter: blur(60px);
 }
 
-@keyframes meshMove {
-  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
-  25% { transform: translate(5%, -5%) rotate(3deg) scale(1.05); }
-  50% { transform: translate(-3%, 7%) rotate(-3deg) scale(0.95); }
-  75% { transform: translate(7%, -3%) rotate(5deg) scale(1.08); }
-}
-
-@keyframes orbFloat {
-  0%, 100% { opacity: 0.3; transform: scale(1) translateY(0); }
-  33% { opacity: 0.5; transform: scale(1.15) translateY(-20px); }
-  66% { opacity: 0.4; transform: scale(0.9) translateY(10px); }
-}
-
-/* Scanline effect */
-.scanlines {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-  background: linear-gradient(
-    to bottom,
-    transparent 50%,
-    rgba(0, 240, 255, 0.02) 51%
-  );
-  background-size: 100% 4px;
-  animation: scanline 8s linear infinite;
-  opacity: 0.5;
-}
-
-@keyframes scanline {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(100%); }
-}
-
-/* Custom scrollbar - Dark Theme */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
-  border-left: 1px solid rgba(0, 240, 255, 0.1);
+  background: linear-gradient(to bottom, #fef1f9, #fae8ff);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--accent-cyan), var(--accent-purple));
+  background: linear-gradient(to bottom, #ff3fa3, #a855f7);
   border-radius: 10px;
-  box-shadow: 0 0 10px var(--glow-cyan);
+  border: 2px solid #fef1f9;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, var(--accent-purple), var(--accent-pink));
-  box-shadow: 0 0 15px var(--glow-purple);
+  background: linear-gradient(to bottom, #ff1a8e, #9333ea);
 }
 
 @layer components {
-  /* Next-Gen Button Styles */
   .btn-primary {
-    @apply relative px-8 py-4 rounded-xl font-bold text-white overflow-hidden transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed;
-    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-    box-shadow: 0 0 20px var(--glow-cyan), 0 4px 15px rgba(0, 0, 0, 0.3);
-  }
-  
-  .btn-primary::before {
-    content: '';
-    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
-    background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
-  }
-  
-  .btn-primary:hover::before {
-    @apply opacity-100;
+    @apply bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white px-8 py-3.5 rounded-full font-bold hover:shadow-glow transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105;
   }
   
   .btn-secondary {
-    @apply relative px-8 py-4 rounded-xl font-bold overflow-hidden transition-all duration-300 transform hover:scale-105;
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
-    border: 2px solid rgba(0, 240, 255, 0.3);
-    box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
-  }
-  
-  .btn-secondary:hover {
-    border-color: var(--accent-cyan);
-    box-shadow: 0 0 25px var(--glow-cyan);
+    @apply bg-gradient-to-r from-pearl-100 to-pearl-200 text-gray-800 px-8 py-3.5 rounded-full font-bold hover:from-pearl-200 hover:to-pearl-300 transition-all duration-300 shadow-soft hover:shadow-dreamy transform hover:scale-105;
   }
 
   .btn-accent {
-    @apply relative px-8 py-4 rounded-xl font-bold text-white overflow-hidden transition-all duration-300 transform hover:scale-105;
-    background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
-    box-shadow: 0 0 20px var(--glow-pink), 0 4px 15px rgba(0, 0, 0, 0.3);
+    @apply bg-gradient-to-r from-accent-400 to-accent-500 text-white px-8 py-3.5 rounded-full font-bold hover:from-accent-500 hover:to-accent-600 transition-all duration-300 shadow-lg hover:shadow-glow transform hover:scale-105;
   }
   
-  /* Next-Gen Input Styles */
   .input-field {
-    @apply w-full px-5 py-4 rounded-xl outline-none transition-all duration-300;
-    background: var(--bg-tertiary);
-    border: 2px solid rgba(0, 240, 255, 0.2);
-    color: var(--text-primary);
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    @apply w-full px-5 py-3.5 border-2 border-primary-100 rounded-2xl focus:ring-2 focus:ring-primary-400 focus:border-primary-400 outline-none transition-all duration-300 bg-white/70 backdrop-blur-sm hover:border-primary-200 placeholder:text-gray-400;
   }
   
-  .input-field:focus {
-    border-color: var(--accent-cyan);
-    box-shadow: 0 0 20px var(--glow-cyan), inset 0 2px 4px rgba(0, 0, 0, 0.3);
-  }
-  
-  .input-field::placeholder {
-    color: var(--text-tertiary);
-  }
-  
-  /* Next-Gen Card Styles */
   .card {
-    @apply backdrop-blur-xl rounded-2xl p-6 border transition-all duration-300 transform hover:-translate-y-2 relative z-10;
-    background: var(--bg-glass);
-    border: 1px solid rgba(0, 240, 255, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 240, 255, 0.1);
-  }
-  
-  .card:hover {
-    border-color: var(--accent-cyan);
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4), 0 0 30px var(--glow-cyan);
+    @apply bg-white/90 backdrop-blur-sm rounded-3xl shadow-dreamy p-6 border border-primary-50 hover:shadow-glow transition-all duration-300 transform hover:-translate-y-1 relative z-10;
   }
 
   .card-glass {
-    @apply backdrop-blur-2xl rounded-3xl p-8 border transition-all duration-500 relative z-10;
-    background: linear-gradient(135deg, rgba(18, 18, 26, 0.9), rgba(26, 26, 38, 0.8));
-    border: 1px solid rgba(180, 0, 255, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  }
-  
-  .card-glass:hover {
-    transform: translateY(-8px) scale(1.02);
-    border-color: var(--accent-purple);
-    box-shadow: 0 16px 64px rgba(0, 0, 0, 0.5), 0 0 40px var(--glow-purple);
+    @apply bg-gradient-to-br from-white/70 to-white/50 backdrop-blur-xl rounded-3xl shadow-soft p-8 border border-primary-100/50 hover:shadow-dreamy transition-all duration-300 relative z-10;
   }
 
-  /* Holographic effect */
-  .card-holo {
-    @apply card-glass relative overflow-hidden;
-  }
-  
-  .card-holo::before {
-    content: '';
-    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
-    background: linear-gradient(
-      45deg,
-      transparent 30%,
-      rgba(0, 240, 255, 0.1) 50%,
-      transparent 70%
-    );
-    transform: translateX(-100%);
-  }
-  
-  .card-holo:hover::before {
-    @apply opacity-100;
-    animation: holoShine 1.5s ease-in-out;
-  }
-  
-  @keyframes holoShine {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-  }
-
-  /* Neon Text Effects */
   .gradient-text {
-    @apply bg-clip-text text-transparent;
-    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
-    animation: gradientShift 3s ease-in-out infinite;
+    @apply bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent;
   }
-  
-  @keyframes gradientShift {
-    0%, 100% { filter: hue-rotate(0deg); }
-    50% { filter: hue-rotate(20deg); }
+
+  .gradient-border {
+    @apply relative;
   }
-  
-  .neon-text {
-    color: var(--accent-cyan);
-    text-shadow: 
-      0 0 10px var(--glow-cyan),
-      0 0 20px var(--glow-cyan),
-      0 0 30px var(--glow-cyan);
+
+  .gradient-border::before {
+    content: '';
+    @apply absolute inset-0 rounded-3xl p-[2px] bg-gradient-to-r from-primary-400 via-secondary-400 to-accent-400;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
   }
 
   .section-title {
-    @apply text-4xl md:text-6xl font-extrabold mb-6 animate-slide-up;
-    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 20px var(--glow-cyan));
+    @apply text-4xl md:text-6xl font-extrabold mb-6 gradient-text animate-slide-up;
   }
 
   .section-subtitle {
-    @apply text-xl md:text-2xl mb-12 animate-slide-up font-medium;
-    color: var(--text-secondary);
+    @apply text-xl md:text-2xl text-gray-600 mb-12 animate-slide-up font-medium;
   }
 
-  /* Glow effects */
-  .glow-cyan {
-    box-shadow: 0 0 30px var(--glow-cyan), 0 0 60px var(--glow-cyan);
+  .shadow-glow {
+    box-shadow: 0 0 30px rgba(255, 63, 163, 0.4), 0 0 60px rgba(168, 85, 247, 0.2);
   }
-  
-  .glow-purple {
-    box-shadow: 0 0 30px var(--glow-purple), 0 0 60px var(--glow-purple);
-  }
-  
-  .glow-pink {
-    box-shadow: 0 0 30px var(--glow-pink), 0 0 60px var(--glow-pink);
+
+  .font-handwriting {
+    font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
   }
 
   .scrollbar-hide {
@@ -296,19 +119,5 @@ body::after {
 
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
-  }
-  
-  /* Cyberpunk Grid */
-  .cyber-grid {
-    background-image: 
-      linear-gradient(rgba(0, 240, 255, 0.1) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 240, 255, 0.1) 1px, transparent 1px);
-    background-size: 50px 50px;
-    animation: gridMove 20s linear infinite;
-  }
-  
-  @keyframes gridMove {
-    0% { background-position: 0 0; }
-    100% { background-position: 50px 50px; }
   }
 }
