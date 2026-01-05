@@ -245,13 +245,6 @@ export default function Navbar() {
                 className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 hover:text-primary-600 rounded-xl transition-all font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                🎨 Categories
-              </Link>
-              <Link
-                href="/handcrafts"
-                className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 hover:text-primary-600 rounded-xl transition-all font-medium"
-                onClick={() => setMobileMenuOpen(false)}
-              >
                 ✨ Handcraft Ideas
               </Link>
               <Link
