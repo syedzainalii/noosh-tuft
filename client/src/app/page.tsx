@@ -253,72 +253,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      {/* Categories Section */}
-      <div className="relative bg-white/80 backdrop-blur-sm py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {categoriesLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="card animate-pulse">
-                  <div className="bg-gradient-to-br from-gray-200 to-gray-300 h-48 rounded-2xl mb-4"></div>
-                  <div className="bg-gray-300 h-6 rounded-lg w-3/4 mb-2"></div>
-                  <div className="bg-gray-200 h-4 rounded-lg w-full"></div>
-                </div>
-              ))}
-            </div>
-          ) : categories.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {categories.map((category, index) => (
-                <Link
-                  key={category.id}
-                  href={`/products?category=${category.slug}`}
-                  className="group"
-                  style={{animationDelay: `${index * 0.1}s`}}
-                >
-                  <div className="card hover:shadow-glow cursor-pointer overflow-hidden">
-                    <div className="relative h-48 mb-5 bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 rounded-2xl overflow-hidden">
-                      {category.image_url ? (
-                        <Image
-                          src={category.image_url}
-                          alt={category.name}
-                          fill
-                          className="object-cover group-hover:scale-110 transition-transform duration-700"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 flex items-center justify-center text-primary-300">
-                          <HeartIcon className="h-16 w-16" />
-                        </div>
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <div className="absolute bottom-0 left-0 right-0 p-4 text-white font-bold text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center">
-                        Explore →
-                      </div>
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-primary-500 group-hover:to-secondary-500 group-hover:bg-clip-text transition-all text-center">
-                      {category.name}
-                    </h3>
-                    {category.description && (
-                      <p className="text-gray-500 text-sm text-center leading-relaxed line-clamp-2">
-                        {category.description}
-                      </p>
-                    )}
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-16">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary-100 via-secondary-100 to-accent-100 rounded-full mb-6 shadow-dreamy">
-                <span className="text-4xl">🎨</span>
-              </div>
-              <p className="text-xl text-gray-600 mb-6 font-medium">No categories yet</p>
-              <p className="text-gray-500">Check back soon for our handcraft collections!</p>
-            </div>
-          )}
-        </div>
-      </div>
-
+      
       {/* Featured Products */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="text-center mb-20">
