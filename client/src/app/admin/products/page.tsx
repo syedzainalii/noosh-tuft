@@ -39,12 +39,12 @@ export default function AdminProductsPage() {
   };
 
   const handleDelete = async (productId: number, productName: string) => {
-    if (!confirm(`Are you sure you want to delete "₹{productName}"?`)) {
+    if (!confirm(`Are you sure you want to delete "${productName}"?`)) {
       return;
     }
 
     try {
-      await api.delete(`/api/products/₹{productId}`);
+      await api.delete(`/api/products/${productId}`);
       toast.success('Product deleted successfully');
       fetchProducts();
     } catch (error: any) {
@@ -111,12 +111,12 @@ export default function AdminProductsPage() {
                       <div className="text-sm text-gray-900">₹{product.price.toFixed(2)}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className={`text-sm ₹{product.stock_quantity < 10 ? 'text-red-600 font-semibold' : 'text-gray-900'}`}>
+                      <div className={`text-sm ${product.stock_quantity < 10 ? 'text-red-600 font-semibold' : 'text-gray-900'}`}>
                         {product.stock_quantity}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ₹{
+                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                         product.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
                       }`}>
                         {product.is_active ? 'Active' : 'Inactive'}
@@ -124,7 +124,7 @@ export default function AdminProductsPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <Link
-                        href={`/admin/products/₹{product.id}`}
+                        href={`/admin/products/${product.id}`}
                         className="text-primary-600 hover:text-primary-900 mr-4"
                       >
                         <PencilIcon className="h-5 w-5 inline" />
