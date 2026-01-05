@@ -180,12 +180,6 @@ export default function AdminDashboard() {
                 <p className="text-sm text-gray-600">Track and fulfill orders</p>
               </div>
             </Link>
-            <Link href="/admin/products/new" className="group">
-              <div className="p-6 rounded-xl bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-200 hover:border-green-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                <div className="text-green-600 font-bold text-lg mb-2 group-hover:text-green-700">➕ New Product</div>
-                <p className="text-sm text-gray-600">Create product listing</p>
-              </div>
-            </Link>
             <Link href="/admin/hero-banner" className="group">
               <div className="p-6 rounded-xl bg-gradient-to-br from-indigo-50 to-indigo-100 border-2 border-indigo-200 hover:border-indigo-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                 <div className="text-indigo-600 font-bold text-lg mb-2 group-hover:text-indigo-700">🖼️ Hero Banner</div>
