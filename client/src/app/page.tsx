@@ -179,8 +179,8 @@ export default function Home() {
           <div className="inline-block mb-4">
             <span className="text-6xl">✨</span>
           </div>
-          <h2 className="section-title">Featured Collection</h2>
-          <p className="section-subtitle">Our most loved pieces, curated just for you</p>
+          <h2 className="section-title">Welcome to Noosh Tufts</h2>
+          <p className="section-subtitle">Tufted Designs Handcrafted with Love</p>
         </div>
         
         {isLoading ? (
@@ -271,8 +271,8 @@ export default function Home() {
             <div className="inline-block mb-4">
               <span className="text-5xl">🧵</span>
             </div>
-            <h2 className="section-title">Welcome to Noosh Tufts</h2>
-            <p className="section-subtitle">Tufted Designs Handcrafted with Love</p>
+            <h2 className="section-title">Textured Art</h2>
+            <p className="section-subtitle">Elevate your space with hand-tufted wall decor that adds warmth and dimension.</p>
           </div>
 
           {/* Polaroid Cards Carousel */}
