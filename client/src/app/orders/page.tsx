@@ -98,7 +98,7 @@ export default function OrdersPage() {
                       </p>
                     </div>
                     <p className="text-xl font-bold text-primary-600">
-                      ${order.total_amount.toFixed(2)}
+                      Rs {order.total_amount.toFixed(2)}
                     </p>
                   </div>
                 </div>

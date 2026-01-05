@@ -111,11 +111,11 @@ export default function ProductDetailPage() {
 
             <div className="flex items-center space-x-4">
               <span className="text-3xl font-bold text-primary-600">
-                ${product.price.toFixed(2)}
+                Rs {product.price.toFixed(2)}
               </span>
               {product.compare_at_price && (
                 <span className="text-xl text-gray-400 line-through">
-                  ${product.compare_at_price.toFixed(2)}
+                  Rs {product.compare_at_price.toFixed(2)}
                 </span>
               )}
             </div>

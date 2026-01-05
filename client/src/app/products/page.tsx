@@ -176,11 +176,11 @@ export default function ProductsPage() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-baseline space-x-2">
                       <span className="text-xl font-bold bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent">
-                        ₹{product.price.toFixed(2)}
+                        Rs {product.price.toFixed(2)}
                       </span>
                       {product.compare_at_price && (
                         <span className="text-gray-400 line-through text-xs">
-                          ₹{product.compare_at_price.toFixed(2)}
+                          Rs {product.compare_at_price.toFixed(2)}
                         </span>
                       )}
                     </div>

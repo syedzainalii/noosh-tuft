@@ -387,11 +387,11 @@ export default function Home() {
                   <div className="flex items-center justify-between mt-auto">
                     <div className="flex flex-col">
                       <span className="text-3xl font-black bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent">
-                        ₹{product.price.toFixed(2)}
+                        Rs {product.price.toFixed(2)}
                       </span>
                       {product.compare_at_price && (
                         <span className="text-gray-400 line-through text-sm font-medium">
-                          ₹{product.compare_at_price.toFixed(2)}
+                          Rs {product.compare_at_price.toFixed(2)}
                         </span>
                       )}
                     </div>
@@ -427,7 +427,7 @@ export default function Home() {
                 <TruckIcon className="h-10 w-10 text-white" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3 gradient-text">Free Shipping</h3>
-              <p className="text-gray-600 leading-relaxed">Complimentary delivery on all orders over $50</p>
+              <p className="text-gray-600 leading-relaxed">Complimentary delivery on all orders over Rs 50</p>
             </div>
 
             <div className="card-glass text-center group hover:scale-105">

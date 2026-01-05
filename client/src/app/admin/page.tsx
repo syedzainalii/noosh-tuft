@@ -94,7 +94,7 @@ export default function AdminDashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-green-100 text-sm font-medium mb-1">Total Revenue</p>
-                  <p className="text-4xl font-bold">${stats.total_revenue.toFixed(2)}</p>
+                  <p className="text-4xl font-bold">Rs {stats.total_revenue.toFixed(2)}</p>
                 </div>
                 <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
                   <CurrencyDollarIcon className="h-8 w-8 text-white" />
