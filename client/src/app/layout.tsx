@@ -1,4 +1,5 @@
-import type { Metadata } from 'next'
+'use client';
+
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
@@ -7,11 +8,6 @@ import Footer from '@/components/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'Noosh Tufts - Tufted & Embroidered Handcrafts',
-  description: 'Discover authentic handcrafted treasures. Each piece lovingly tufted and embroidered by artisan hands.',
-}
-
 export default function RootLayout({
   children,
 }: {
@@ -19,6 +15,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <title>NexGen Web - Premium Website Development</title>
+        <meta name="description" content="Transform your digital presence with cutting-edge websites. Custom development, stunning designs, and unmatched performance." />
+      </head>
       <body className={inter.className}>
         <Navbar />
         <div className="pt-20">
