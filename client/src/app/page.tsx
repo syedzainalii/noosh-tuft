@@ -230,30 +230,6 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Polaroid Card 4 */}
-              <div className="flex-shrink-0 w-80 snap-center">
-                <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:rotate-3 hover:scale-105" style={{transform: 'rotate(1deg)'}}>
-                  <div className="relative h-80 bg-gradient-to-br from-primary-50 to-accent-50 mb-4 overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center text-primary-300">
-                      <span className="text-6xl">✨</span>
-                    </div>
-                  </div>
-                  <div className="text-center font-handwriting text-gray-700 text-lg">
-                    Adding final touches
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center mt-12 px-4 sm:px-6 lg:px-8">
-            <p className="text-gray-600 italic text-lg">
-              Each piece tells a story of dedication and craftsmanship 💝
-            </p>
-          </div>
-        </div>
-      </div>
-      
       {/* Featured Products */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="text-center mb-20">
@@ -345,6 +321,30 @@ export default function Home() {
         )}
       </div>
 
+              {/* Polaroid Card 4 */}
+              <div className="flex-shrink-0 w-80 snap-center">
+                <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:rotate-3 hover:scale-105" style={{transform: 'rotate(1deg)'}}>
+                  <div className="relative h-80 bg-gradient-to-br from-primary-50 to-accent-50 mb-4 overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center text-primary-300">
+                      <span className="text-6xl">✨</span>
+                    </div>
+                  </div>
+                  <div className="text-center font-handwriting text-gray-700 text-lg">
+                    Adding final touches
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-12 px-4 sm:px-6 lg:px-8">
+            <p className="text-gray-600 italic text-lg">
+              Each piece tells a story of dedication and craftsmanship 💝
+            </p>
+          </div>
+        </div>
+      </div>
+      
       {/* Features Section */}
       <div className="relative bg-gradient-to-b from-pearl-50/50 to-white/50 backdrop-blur-sm py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
