@@ -173,87 +173,6 @@ export default function Home() {
         )}
       </div>
 
-      {/* Polaroid Showcase - Crafting Process */}
-      <div className="relative bg-gradient-to-b from-white/90 to-pearl-50/90 backdrop-blur-sm py-24 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 px-4 sm:px-6 lg:px-8">
-            <div className="inline-block mb-4">
-              <span className="text-5xl">🧵</span>
-            </div>
-            <h2 className="section-title">Welcome to Noosh Tufts</h2>
-            <p className="section-subtitle">Tufted Designs Handcrafted with Love</p>
-          </div>
-
-          {/* Polaroid Cards Carousel */}
-          <div className="relative">
-            <div className="flex gap-8 overflow-x-auto pb-12 px-8 scrollbar-hide snap-x snap-mandatory"
-                 style={{scrollPaddingLeft: '2rem', scrollPaddingRight: '2rem'}}>
-              {/* Polaroid Card 1 */}
-              <div className="flex-shrink-0 w-80 snap-center">
-                <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:-rotate-2 hover:scale-105" style={{transform: 'rotate(-3deg)'}}>
-                  <div className="relative h-80 bg-gradient-to-br from-primary-50 to-secondary-50 mb-4 overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center text-primary-300">
-                      <span className="text-6xl">🎨</span>
-                    </div>
-                  </div>
-                  <div className="text-center font-handwriting text-gray-700 text-lg">
-                    Sketching the design
-                  </div>
-                </div>
-              </div>
-
-              {/* Polaroid Card 3 */}
-              <div className="flex-shrink-0 w-80 snap-center">
-                <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:-rotate-1 hover:scale-105" style={{transform: 'rotate(-1deg)'}}>
-                  <div className="relative h-80 bg-gradient-to-br from-accent-50 to-primary-50 mb-4 overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center text-accent-300">
-                      <span className="text-6xl">🧶</span>
-                    </div>
-                  </div>
-                  <div className="text-center font-handwriting text-gray-700 text-lg">
-                    Tufting magic begins
-                  </div>
-                </div>
-              </div>
-
-              {/* Polaroid Card 2 */}
-              <div className="flex-shrink-0 w-80 snap-center">
-                <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:rotate-2 hover:scale-105" style={{transform: 'rotate(2deg)'}}>
-                  <div className="relative h-80 bg-gradient-to-br from-secondary-50 to-accent-50 mb-4 overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center text-secondary-300">
-                      <span className="text-6xl">✂️</span>
-                    </div>
-                  </div>
-                  <div className="text-center font-handwriting text-gray-700 text-lg">
-                    Cutting the fabric
-                  </div>
-                </div>
-              </div>
-
-              {/* Polaroid Card 4 */}
-              <div className="flex-shrink-0 w-80 snap-center">
-                <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:rotate-3 hover:scale-105" style={{transform: 'rotate(1deg)'}}>
-                  <div className="relative h-80 bg-gradient-to-br from-primary-50 to-accent-50 mb-4 overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center text-primary-300">
-                      <span className="text-6xl">✨</span>
-                    </div>
-                  </div>
-                  <div className="text-center font-handwriting text-gray-700 text-lg">
-                    Adding final touches
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center mt-12 px-4 sm:px-6 lg:px-8">
-            <p className="text-gray-600 italic text-lg">
-              Each piece tells a story of dedication and craftsmanship 💝
-            </p>
-          </div>
-        </div>
-      </div>
-      
       {/* Featured Products */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="text-center mb-20">
@@ -343,6 +262,87 @@ export default function Home() {
             </Link>
           </div>
         )}
+      </div>
+
+      {/* Polaroid Showcase - Crafting Process */}
+      <div className="relative bg-gradient-to-b from-white/90 to-pearl-50/90 backdrop-blur-sm py-24 overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 px-4 sm:px-6 lg:px-8">
+            <div className="inline-block mb-4">
+              <span className="text-5xl">🧵</span>
+            </div>
+            <h2 className="section-title">Welcome to Noosh Tufts</h2>
+            <p className="section-subtitle">Tufted Designs Handcrafted with Love</p>
+          </div>
+
+          {/* Polaroid Cards Carousel */}
+          <div className="relative">
+            <div className="flex gap-8 overflow-x-auto pb-12 px-8 scrollbar-hide snap-x snap-mandatory"
+                 style={{scrollPaddingLeft: '2rem', scrollPaddingRight: '2rem'}}>
+              {/* Polaroid Card 1 */}
+              <div className="flex-shrink-0 w-80 snap-center">
+                <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:-rotate-2 hover:scale-105" style={{transform: 'rotate(-3deg)'}}>
+                  <div className="relative h-80 bg-gradient-to-br from-primary-50 to-secondary-50 mb-4 overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center text-primary-300">
+                      <span className="text-6xl">🎨</span>
+                    </div>
+                  </div>
+                  <div className="text-center font-handwriting text-gray-700 text-lg">
+                    Sketching the design
+                  </div>
+                </div>
+              </div>
+
+              {/* Polaroid Card 3 */}
+              <div className="flex-shrink-0 w-80 snap-center">
+                <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:-rotate-1 hover:scale-105" style={{transform: 'rotate(-1deg)'}}>
+                  <div className="relative h-80 bg-gradient-to-br from-accent-50 to-primary-50 mb-4 overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center text-accent-300">
+                      <span className="text-6xl">🧶</span>
+                    </div>
+                  </div>
+                  <div className="text-center font-handwriting text-gray-700 text-lg">
+                    Tufting magic begins
+                  </div>
+                </div>
+              </div>
+
+              {/* Polaroid Card 2 */}
+              <div className="flex-shrink-0 w-80 snap-center">
+                <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:rotate-2 hover:scale-105" style={{transform: 'rotate(2deg)'}}>
+                  <div className="relative h-80 bg-gradient-to-br from-secondary-50 to-accent-50 mb-4 overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center text-secondary-300">
+                      <span className="text-6xl">✂️</span>
+                    </div>
+                  </div>
+                  <div className="text-center font-handwriting text-gray-700 text-lg">
+                    Cutting the fabric
+                  </div>
+                </div>
+              </div>
+
+              {/* Polaroid Card 4 */}
+              <div className="flex-shrink-0 w-80 snap-center">
+                <div className="bg-white p-4 shadow-dreamy hover:shadow-glow transition-all duration-500 transform hover:rotate-3 hover:scale-105" style={{transform: 'rotate(1deg)'}}>
+                  <div className="relative h-80 bg-gradient-to-br from-primary-50 to-accent-50 mb-4 overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center text-primary-300">
+                      <span className="text-6xl">✨</span>
+                    </div>
+                  </div>
+                  <div className="text-center font-handwriting text-gray-700 text-lg">
+                    Adding final touches
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-12 px-4 sm:px-6 lg:px-8">
+            <p className="text-gray-600 italic text-lg">
+              Each piece tells a story of dedication and craftsmanship 💝
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Features Section */}
