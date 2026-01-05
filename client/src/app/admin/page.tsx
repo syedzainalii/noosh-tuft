@@ -31,6 +31,20 @@ export default function AdminDashboard() {
       return;
     }
     fetchStats();
+
+    // Hide footer on admin pages
+    const footer = document.querySelector('footer');
+    if (footer) {
+      footer.style.display = 'none';
+    }
+
+    // Show footer again when component unmounts
+    return () => {
+      const footer = document.querySelector('footer');
+      if (footer) {
+        footer.style.display = 'block';
+      }
+    };
   }, [isAuthenticated, user, router]);
 
   const fetchStats = async () => {
@@ -78,29 +92,6 @@ export default function AdminDashboard() {
         {/* Stats Grid */}
         {stats && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            <div className="card-glass bg-gradient-to-br from-blue-500 to-blue-600 text-white border-none hover:scale-105">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-blue-100 text-sm font-medium mb-1">Total Orders</p>
-                  <p className="text-4xl font-bold">{stats.total_orders}</p>
-                </div>
-                <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                  <ShoppingBagIcon className="h-8 w-8 text-white" />
-                </div>
-              </div>
-            </div>
-
-            <div className="card-glass bg-gradient-to-br from-green-500 to-green-600 text-white border-none hover:scale-105">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-green-100 text-sm font-medium mb-1">Total Revenue</p>
-                  <p className="text-4xl font-bold">Rs {stats.total_revenue.toFixed(2)}</p>
-                </div>
-                <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                  <CurrencyDollarIcon className="h-8 w-8 text-white" />
-                </div>
-              </div>
-            </div>
 
             <div className="card-glass bg-gradient-to-br from-purple-500 to-purple-600 text-white border-none hover:scale-105">
               <div className="flex items-center justify-between">
@@ -122,6 +113,18 @@ export default function AdminDashboard() {
                 </div>
                 <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
                   <CubeIcon className="h-8 w-8 text-white" />
+                </div>
+              </div>
+            </div>
+
+            <div className="card-glass bg-gradient-to-br from-blue-500 to-blue-600 text-white border-none hover:scale-105">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-blue-100 text-sm font-medium mb-1">Total Orders</p>
+                  <p className="text-4xl font-bold">{stats.total_orders}</p>
+                </div>
+                <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                  <ShoppingBagIcon className="h-8 w-8 text-white" />
                 </div>
               </div>
             </div>
@@ -149,6 +152,18 @@ export default function AdminDashboard() {
                 </div>
               </div>
             </div>
+
+            <div className="card-glass bg-gradient-to-br from-green-500 to-green-600 text-white border-none hover:scale-105">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-green-100 text-sm font-medium mb-1">Total Revenue</p>
+                  <p className="text-4xl font-bold">Rs {stats.total_revenue.toFixed(2)}</p>
+                </div>
+                <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                  <CurrencyDollarIcon className="h-8 w-8 text-white" />
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
@@ -156,6 +171,12 @@ export default function AdminDashboard() {
         <div className="card">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Quick Actions</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Link href="/admin/orders" className="group">
+              <div className="p-6 rounded-xl bg-gradient-to-br from-accent-50 to-accent-100 border-2 border-accent-200 hover:border-accent-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                <div className="text-accent-600 font-bold text-lg mb-2 group-hover:text-accent-700">📦 Orders</div>
+                <p className="text-sm text-gray-600">Track and fulfill orders</p>
+              </div>
+            </Link>
             <Link href="/admin/products" className="group">
               <div className="p-6 rounded-xl bg-gradient-to-br from-primary-50 to-primary-100 border-2 border-primary-200 hover:border-primary-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                 <div className="text-primary-600 font-bold text-lg mb-2 group-hover:text-primary-700">🛍️ Products</div>
@@ -174,15 +195,9 @@ export default function AdminDashboard() {
                 <p className="text-sm text-gray-600">Process photos</p>
               </div>
             </Link>
-            <Link href="/admin/orders" className="group">
-              <div className="p-6 rounded-xl bg-gradient-to-br from-accent-50 to-accent-100 border-2 border-accent-200 hover:border-accent-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                <div className="text-accent-600 font-bold text-lg mb-2 group-hover:text-accent-700">📦 Orders</div>
-                <p className="text-sm text-gray-600">Track and fulfill orders</p>
-              </div>
-            </Link>
             <Link href="/admin/hero-banner" className="group">
-              <div className="p-6 rounded-xl bg-gradient-to-br from-indigo-50 to-indigo-100 border-2 border-indigo-200 hover:border-indigo-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                <div className="text-indigo-600 font-bold text-lg mb-2 group-hover:text-indigo-700">🖼️ Hero Banner</div>
+              <div className="p-6 rounded-xl bg-gradient-to-br from-pink-50 to-pink-100 border-2 border-pink-200 hover:border-pink-400 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                <div className="text-pink-600 font-bold text-lg mb-2 group-hover:text-pink-700">🖼️ Hero Banner</div>
                 <p className="text-sm text-gray-600">Manage home page banner</p>
               </div>
             </Link>
