@@ -45,23 +45,23 @@ export default function Home() {
         setHeroBanners(response.data || []);
       } catch (error) {
         console.error('Failed to fetch hero banners:', error);
+        setHeroBanners([]);
       } finally {
         setBannerLoading(false);
       }
     };
 
+    fetchHeroBanners();
     fetchFeaturedProducts();
     fetchCategories();
-    fetchHeroBanners();
   }, []);
 
-  // Auto-rotate slideshow
   useEffect(() => {
-    if (heroBanners.length <= 1) return; // No rotation if 0 or 1 banner
+    if (heroBanners.length <= 1) return;
     
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroBanners.length);
-    }, 7000); // Change slide every 7 seconds
+    }, 7000);
 
     return () => clearInterval(interval);
   }, [heroBanners.length]);
@@ -82,9 +82,9 @@ export default function Home() {
     <div className="min-h-screen">
 
       {/* Hero Section - Slideshow */}
-       <div className="relative h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 z-0">
+      <div className="relative h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50">
         {/* Slideshow Images */}
-        {heroBanners.length > 0 && !bannerLoading ? (
+        {!bannerLoading && heroBanners.length > 0 ? (
           <>
             {heroBanners.map((banner, index) => (
               <div
@@ -99,11 +99,19 @@ export default function Home() {
                   fill
                   className="object-cover"
                   priority={index === 0}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  sizes="100vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-black/5 to-black/10"></div>
               </div>
             ))}
           </>
+        ) : bannerLoading ? (
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-100/20 via-secondary-100/20 to-accent-100/20 animate-pulse">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-16 h-16 border-4 border-primary-300 border-t-primary-600 rounded-full animate-spin"></div>
+            </div>
+          </div>
         ) : (
           <>
             <div className="absolute inset-0 bg-gradient-to-br from-primary-100/20 via-secondary-100/20 to-accent-100/20"></div>
@@ -112,18 +120,18 @@ export default function Home() {
         )}
         
         {/* Content Overlay */}
-        <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-          {heroBanners.length === 0 ? (
+        <div className="relative text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+          {!bannerLoading && heroBanners.length === 0 ? (
             <div className="inline-block mb-6 animate-bounce">
               <SparklesIcon className="h-16 w-16 text-primary-500" />
             </div>
           ) : null}
-          {heroBanners[currentSlide]?.title && (
+          {!bannerLoading && heroBanners[currentSlide]?.title && (
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 transition-all duration-500 text-white drop-shadow-2xl">
               {heroBanners[currentSlide].title}
             </h1>
           )}
-          {heroBanners[currentSlide]?.subtitle && (
+          {!bannerLoading && heroBanners[currentSlide]?.subtitle && (
             <p className="text-xl sm:text-2xl mb-8 max-w-2xl mx-auto transition-all duration-500 text-white drop-shadow-lg">
               {heroBanners[currentSlide].subtitle}
             </p>
@@ -135,7 +143,7 @@ export default function Home() {
           <>
             <button
               onClick={goToPrevious}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 backdrop-blur-sm p-3 rounded-full transition-all duration-300 group"
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-sm p-3 rounded-full transition-all duration-300 group"
               aria-label="Previous slide"
             >
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -144,7 +152,7 @@ export default function Home() {
             </button>
             <button
               onClick={goToNext}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 backdrop-blur-sm p-3 rounded-full transition-all duration-300 group"
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-sm p-3 rounded-full transition-all duration-300 group"
               aria-label="Next slide"
             >
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -156,7 +164,7 @@ export default function Home() {
 
         {/* Dot Indicators */}
         {heroBanners.length > 1 && (
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
             {heroBanners.map((_, index) => (
               <button
                 key={index}
