@@ -58,7 +58,10 @@ export default function AdminCategoriesPage() {
     }
   };
 
-  const handleDelete = async (categoryId: number, categoryName: string) => {
+  const handleDelete = async (e: React.MouseEvent, categoryId: number, categoryName: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
     if (!confirm(`Are you sure you want to delete "${categoryName}"?`)) {
       return;
     }
@@ -79,7 +82,10 @@ export default function AdminCategoriesPage() {
             <h1 className="text-4xl font-bold gradient-text mb-2">Manage Craft Categories</h1>
             <p className="text-gray-600">Organize your handcrafted products by category</p>
           </div>
-          <button onClick={() => setShowAddModal(true)} className="btn-primary">
+          <button 
+            onClick={() => setShowAddModal(true)} 
+            className="btn-primary w-full md:w-auto"
+          >
             ✨ Add New Category
           </button>
         </div>
@@ -115,8 +121,8 @@ export default function AdminCategoriesPage() {
                 <p className="text-sm text-gray-600 mb-4 line-clamp-2">{category.description || 'No description'}</p>
                 <div className="flex space-x-3 pt-4 border-t border-gray-100">
                   <button
-                    onClick={() => handleDelete(category.id, category.name)}
-                    className="flex items-center space-x-2 text-red-600 hover:text-red-800 transition-colors"
+                    onClick={(e) => handleDelete(e, category.id, category.name)}
+                    className="flex items-center justify-center space-x-2 text-red-600 hover:text-red-800 hover:bg-red-50 transition-all px-4 py-2.5 rounded-lg active:scale-95 touch-manipulation min-h-[44px]"
                   >
                     <TrashIcon className="h-5 w-5" />
                     <span className="text-sm font-medium">Delete</span>
@@ -140,11 +146,19 @@ export default function AdminCategoriesPage() {
 
         {/* Add Category Modal */}
         {showAddModal && (
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in">
-            <div className="bg-white rounded-3xl p-8 max-w-xl w-full shadow-dreamy border border-primary-100 animate-slide-up">
+          <div 
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-[100] animate-fade-in"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) {
+                setShowAddModal(false);
+                setFormData({ name: '', slug: '', description: '', image_url: '' });
+              }
+            }}
+          >
+            <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-xl w-full shadow-dreamy border border-primary-100 animate-slide-up max-h-[90vh] overflow-y-auto">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h2 className="text-3xl font-bold gradient-text mb-1">Add New Category</h2>
+                  <h2 className="text-2xl sm:text-3xl font-bold gradient-text mb-1">Add New Category</h2>
                   <p className="text-gray-600 text-sm">Create a new category for your handcrafts</p>
                 </div>
                 <span className="text-4xl">🎨</span>
@@ -199,8 +213,11 @@ export default function AdminCategoriesPage() {
                   required={false}
                 />
                 
-                <div className="flex space-x-4 pt-4">
-                  <button type="submit" className="btn-primary flex-1">
+                <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 pt-4">
+                  <button 
+                    type="submit" 
+                    className="btn-primary flex-1 min-h-[44px] touch-manipulation"
+                  >
                     ✨ Create Category
                   </button>
                   <button 
@@ -209,7 +226,7 @@ export default function AdminCategoriesPage() {
                       setShowAddModal(false);
                       setFormData({ name: '', slug: '', description: '', image_url: '' });
                     }} 
-                    className="btn-secondary flex-1"
+                    className="btn-secondary flex-1 min-h-[44px] touch-manipulation"
                   >
                     Cancel
                   </button>
