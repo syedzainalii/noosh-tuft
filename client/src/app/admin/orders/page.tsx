@@ -12,6 +12,7 @@ export default function AdminOrdersPage() {
   const { user, isAuthenticated } = useAuthStore();
   const [orders, setOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [showCompleted, setShowCompleted] = useState(false);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -46,6 +47,25 @@ export default function AdminOrdersPage() {
     }
   };
 
+  const handleDeleteOrder = async (orderId: number, orderNumber: string) => {
+    if (!confirm(`Are you sure you want to delete order ${orderNumber}? This action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      await api.delete(`/api/orders/${orderId}`);
+      toast.success('Order deleted successfully');
+      fetchOrders();
+    } catch (error: any) {
+      toast.error(error.response?.data?.detail || 'Failed to delete order');
+    }
+  };
+
+  // Filter orders based on showCompleted toggle
+  const filteredOrders = showCompleted 
+    ? orders 
+    : orders.filter(order => order.status !== 'delivered' && order.status !== 'cancelled');
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'pending':
@@ -66,7 +86,19 @@ export default function AdminOrdersPage() {
   return (
     <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Manage Orders</h1>
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Manage Orders</h1>
+          <button
+            onClick={() => setShowCompleted(!showCompleted)}
+            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+              showCompleted
+                ? 'bg-blue-600 text-white hover:bg-blue-700'
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+            }`}
+          >
+            {showCompleted ? 'Hide Completed Orders' : 'Show All Orders'}
+          </button>
+        </div>
 
         {isLoading ? (
           <div className="card animate-pulse">
@@ -102,7 +134,7 @@ export default function AdminOrdersPage() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {orders.map((order) => (
+                {filteredOrders.map((order) => (
                   <tr key={order.id}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">
@@ -127,17 +159,26 @@ export default function AdminOrdersPage() {
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      <select
-                        value={order.status}
-                        onChange={(e) => handleStatusChange(order.id, e.target.value)}
-                        className="text-sm border border-gray-300 rounded px-2 py-1"
-                      >
-                        <option value="pending">Pending</option>
-                        <option value="processing">Processing</option>
-                        <option value="shipped">Shipped</option>
-                        <option value="delivered">Delivered</option>
-                        <option value="cancelled">Cancelled</option>
-                      </select>
+                      <div className="flex items-center gap-2">
+                        <select
+                          value={order.status}
+                          onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                          className="text-sm border border-gray-300 rounded px-2 py-1"
+                        >
+                          <option value="pending">Pending</option>
+                          <option value="processing">Processing</option>
+                          <option value="shipped">Shipped</option>
+                          <option value="delivered">Delivered</option>
+                          <option value="cancelled">Cancelled</option>
+                        </select>
+                        <button
+                          onClick={() => handleDeleteOrder(order.id, order.order_number)}
+                          className="text-red-600 hover:text-red-800 font-medium px-2 py-1 rounded hover:bg-red-50 transition-colors"
+                          title="Delete order"
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
