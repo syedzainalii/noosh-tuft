@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
+from datetime import datetime
 from database import get_db
 from models import HandcraftPhoto, User, UserRole
 from auth import get_current_user
@@ -17,10 +18,10 @@ class HandcraftPhotoCreate(BaseModel):
 
 
 class HandcraftPhotoUpdate(BaseModel):
-    title: str = None
-    description: str = None
-    image_url: str = None
-    order_index: int = None
+    title: Optional[str] = None
+    description: Optional[str] = None
+    image_url: Optional[str] = None
+    order_index: Optional[int] = None
 
 
 class HandcraftPhotoResponse(BaseModel):
@@ -29,7 +30,8 @@ class HandcraftPhotoResponse(BaseModel):
     description: str
     image_url: str
     order_index: int
-    created_at: str
+    created_at: datetime
+    updated_at: Optional[datetime] = None
 
     class Config:
         from_attributes = True
