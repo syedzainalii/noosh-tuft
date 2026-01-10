@@ -5,6 +5,7 @@ from database import get_db
 from models import HandcraftPhoto, User, UserRole
 from auth import get_current_user
 from pydantic import BaseModel
+from cloudinary_service import upload_image, is_base64_image, is_cloudinary_url, delete_image
 
 router = APIRouter(prefix="/api/handcraft-photos", tags=["handcraft-photos"])
 
@@ -55,10 +56,15 @@ def create_handcraft_photo(
             detail="Only admins can add handcraft photos"
         )
     
+    # Upload image to Cloudinary if it's base64
+    image_url = photo.image_url
+    if is_base64_image(image_url):
+        image_url = upload_image(image_url, "ecommerce/handcrafts")
+    
     db_photo = HandcraftPhoto(
         title=photo.title,
         description=photo.description,
-        image_url=photo.image_url,
+        image_url=image_url,
         order_index=photo.order_index
     )
     db.add(db_photo)
@@ -93,7 +99,14 @@ def update_handcraft_photo(
     if photo.description is not None:
         db_photo.description = photo.description
     if photo.image_url is not None:
-        db_photo.image_url = photo.image_url
+        # Upload image to Cloudinary if it's base64
+        if is_base64_image(photo.image_url):
+            # Delete old image if it exists and is a Cloudinary URL
+            if db_photo.image_url and is_cloudinary_url(db_photo.image_url):
+                delete_image(db_photo.image_url)
+            db_photo.image_url = upload_image(photo.image_url, "ecommerce/handcrafts")
+        else:
+            db_photo.image_url = photo.image_url
     if photo.order_index is not None:
         db_photo.order_index = photo.order_index
     

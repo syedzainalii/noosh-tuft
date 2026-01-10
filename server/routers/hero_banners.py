@@ -5,6 +5,7 @@ from database import get_db
 from models import HeroBanner, User
 from schemas import HeroBannerCreate, HeroBannerUpdate, HeroBannerResponse
 from auth import get_current_admin_user
+from cloudinary_service import upload_image, is_base64_image, is_cloudinary_url, delete_image
 
 router = APIRouter(prefix="/api/hero-banners", tags=["Hero Banners"])
 
@@ -33,8 +34,13 @@ def create_hero_banner(
     db: Session = Depends(get_db)
 ):
     """Create a new hero banner (admin only)"""
+    # Upload image to Cloudinary if it's base64
+    banner_data = banner.dict()
+    if banner_data.get('image_url') and is_base64_image(banner_data['image_url']):
+        banner_data['image_url'] = upload_image(banner_data['image_url'], "ecommerce/hero-banners")
+    
     # Allow multiple active banners for slideshow
-    db_banner = HeroBanner(**banner.dict())
+    db_banner = HeroBanner(**banner_data)
     db.add(db_banner)
     db.commit()
     db.refresh(db_banner)
@@ -54,6 +60,14 @@ def update_hero_banner(
         raise HTTPException(status_code=404, detail="Hero banner not found")
     
     update_data = banner.dict(exclude_unset=True)
+    
+    # Upload image to Cloudinary if it's base64
+    if 'image_url' in update_data and update_data['image_url']:
+        if is_base64_image(update_data['image_url']):
+            # Delete old image if it exists and is a Cloudinary URL
+            if db_banner.image_url and is_cloudinary_url(db_banner.image_url):
+                delete_image(db_banner.image_url)
+            update_data['image_url'] = upload_image(update_data['image_url'], "ecommerce/hero-banners")
     
     # Allow multiple active banners for slideshow
     for field, value in update_data.items():

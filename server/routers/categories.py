@@ -5,6 +5,7 @@ from database import get_db
 from models import Category, User
 from schemas import CategoryCreate, CategoryUpdate, CategoryResponse
 from auth import get_current_admin_user
+from cloudinary_service import upload_image, is_base64_image, is_cloudinary_url, delete_image
 
 router = APIRouter(prefix="/api/categories", tags=["Categories"])
 
@@ -46,6 +47,10 @@ def create_category(
             detail="Category with this slug already exists"
         )
     
+    # Upload image to Cloudinary if it's base64
+    if category_data.image_url and is_base64_image(category_data.image_url):
+        category_data.image_url = upload_image(category_data.image_url, "ecommerce/categories")
+    
     new_category = Category(**category_data.model_dump())
     db.add(new_category)
     db.commit()
@@ -68,6 +73,13 @@ def update_category(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Category not found"
         )
+    
+    # Upload image to Cloudinary if it's base64
+    if category_data.image_url and is_base64_image(category_data.image_url):
+        # Delete old image if it exists and is a Cloudinary URL
+        if category.image_url and is_cloudinary_url(category.image_url):
+            delete_image(category.image_url)
+        category_data.image_url = upload_image(category_data.image_url, "ecommerce/categories")
     
     # Update category fields
     update_data = category_data.model_dump(exclude_unset=True)
