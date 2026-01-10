@@ -83,6 +83,17 @@ export default function Home() {
 
       {/* Hero Section - Slideshow */}
       <div className="relative h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] xl:h-[800px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50">
+        {/* Preload first banner image for instant display */}
+        {heroBanners.length > 0 && (
+          <link
+            rel="preload"
+            as="image"
+            href={heroBanners[0].image_url}
+            imageSrcSet={`${heroBanners[0].image_url}?w=640 640w, ${heroBanners[0].image_url}?w=1080 1080w, ${heroBanners[0].image_url}?w=1920 1920w`}
+            imageSizes="100vw"
+          />
+        )}
+        
         {/* Slideshow Images */}
         {!bannerLoading && heroBanners.length > 0 ? (
           <>
@@ -100,17 +111,19 @@ export default function Home() {
                   className="object-cover"
                   priority={index === 0}
                   loading={index === 0 ? "eager" : "lazy"}
-                  sizes="100vw"
+                  quality={index === 0 ? 85 : 75}
+                  sizes="(max-width: 640px) 640px, (max-width: 1080px) 1080px, 1920px"
+                  placeholder="blur"
+                  blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2YzZjRmNiIvPjwvc3ZnPg=="
+                  unoptimized={false}
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-black/5 to-black/10"></div>
               </div>
             ))}
           </>
         ) : bannerLoading ? (
-          <div className="absolute inset-0 bg-gradient-to-br from-primary-100/20 via-secondary-100/20 to-accent-100/20 animate-pulse">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-16 h-16 border-4 border-primary-300 border-t-primary-600 rounded-full animate-spin"></div>
-            </div>
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-100/20 via-secondary-100/20 to-accent-100/20">
+            {/* Removed spinner for faster perceived load */}
           </div>
         ) : (
           <>
