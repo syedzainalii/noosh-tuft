@@ -79,35 +79,35 @@ export default function Navbar() {
             </div>
               
             {/* Desktop Navigation - Centered */}
-            <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-2">
+            <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 space-x-1 xl:space-x-2">
               <Link 
                 href="/" 
-                className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
+                className="px-3 xl:px-5 py-2.5 rounded-full text-sm xl:text-base text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
               >
                 Home
               </Link>
               <Link 
                 href="/products" 
-                className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
+                className="px-3 xl:px-5 py-2.5 rounded-full text-sm xl:text-base text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
               >
                 Catalog
               </Link>
               <Link 
                 href="/handcrafts" 
-                className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
+                className="px-3 xl:px-5 py-2.5 rounded-full text-sm xl:text-base text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium whitespace-nowrap"
               >
                 Handcraft Ideas
               </Link>
               <Link 
                 href="/about" 
-                className="px-5 py-2.5 rounded-full text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
+                className="px-3 xl:px-5 py-2.5 rounded-full text-sm xl:text-base text-gray-700 hover:text-primary-600 hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 font-medium"
               >
                 About Us
               </Link>
             </div>
 
             {/* Desktop Actions */}
-            <div className="hidden md:flex items-center space-x-3">
+            <div className="hidden lg:flex items-center space-x-2 xl:space-x-3">
               {isAuthenticated ? (
                 <>
                   <Link href="/cart" className="relative p-3 rounded-full hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 transition-all duration-300 group">
@@ -170,7 +170,7 @@ export default function Navbar() {
             </div>
 
             {/* Mobile menu button */}
-            <div className="md:hidden flex items-center space-x-2">
+            <div className="lg:hidden flex items-center space-x-2">
               {isAuthenticated && (
                 <Link href="/cart" className="relative p-2">
                   <ShoppingCartIcon className="h-6 w-6 text-gray-700" />

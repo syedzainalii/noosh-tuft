@@ -63,7 +63,7 @@ export default function ProductsPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <div className="text-center mb-12">
           <div className="inline-block mb-4">
             <span className="text-6xl">🛍️</span>
@@ -143,7 +143,7 @@ export default function ProductsPage() {
             {products.map((product) => (
               <Link key={product.id} href={`/products/${product.slug}`} className="group">
                 <div className="card hover:shadow-glow cursor-pointer h-full flex flex-col overflow-hidden">
-                  <div className="relative h-56 mb-4 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl overflow-hidden">
+                  <div className="relative h-48 sm:h-52 lg:h-56 mb-3 sm:mb-4 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl overflow-hidden">
                     {product.image_url ? (
                       <Image
                         src={product.image_url}
