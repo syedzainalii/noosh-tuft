@@ -121,7 +121,7 @@ export default function ImageUpload({ value, onChange, label = "Image", required
               className="object-cover"
             />
           </div>
-          <p className=\"text-xs text-gray-500 mt-2 text-center\">
+          <p className="text-xs text-gray-500 mt-2 text-center">
             ✨ {preview.includes('cloudinary.com') ? 'Image stored in Cloudinary' : 'Image ready for upload'}
           </p>
         </div>
