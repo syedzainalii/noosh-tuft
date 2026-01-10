@@ -16,10 +16,9 @@
 ```env
 DATABASE_URL=postgresql://neondb_owner:npg_4juKqTbmFtV7@ep-round-unit-a19rvj0z-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
 SECRET_KEY=rURipMLPYQThadXVjeoI4zCBf1Z3tml6
-CLOUDINARY_CLOUD_NAME=nooshdb
-CLOUDINARY_API_KEY=286975485855137
-CLOUDINARY_API_SECRET=ZtlfiZogr9pKv78uiwc9mivRhl8
 ```
+
+**Note:** No Cloudinary credentials needed on backend - images upload directly from frontend!
 
 **Frontend:** Your Frontend → Settings → Environment Variables
 

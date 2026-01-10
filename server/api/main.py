@@ -20,7 +20,6 @@ from routers import (
     reviews,
     hero_banners,
     about,
-    upload,
 )
 
 from models import User, UserRole
@@ -104,7 +103,6 @@ app.include_router(handcraft_photos.router)
 app.include_router(reviews.router)
 app.include_router(hero_banners.router)
 app.include_router(about.router)
-app.include_router(upload.router)
 
 
 @app.get("/")

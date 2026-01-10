@@ -5,7 +5,6 @@ from database import get_db
 from models import Product, User
 from schemas import ProductCreate, ProductUpdate, ProductResponse
 from auth import get_current_admin_user
-from cloudinary_service import upload_image, is_base64_image, is_cloudinary_url, delete_image
 import json
 
 router = APIRouter(prefix="/api/products", tags=["Products"])
@@ -87,23 +86,7 @@ def create_product(
                 detail="Product with this SKU already exists"
             )
     
-    # Upload main image to Cloudinary if it's base64 (fallback - frontend should upload directly)
-    if product_data.image_url and is_base64_image(product_data.image_url):
-        product_data.image_url = upload_image(product_data.image_url, "ecommerce/products")
-    
-    # Upload additional images to Cloudinary if they're base64 (fallback)
-    if product_data.images:
-        try:
-            images_list = json.loads(product_data.images) if isinstance(product_data.images, str) else product_data.images
-            uploaded_images = []
-            for img in images_list:
-                if is_base64_image(img):
-                    uploaded_images.append(upload_image(img, "ecommerce/products"))
-                else:
-                    uploaded_images.append(img)
-            product_data.images = json.dumps(uploaded_images)
-        except:
-            pass
+    # Image URLs come directly from frontend (already uploaded to Cloudinary)
     
     new_product = Product(**product_data.model_dump())
     db.add(new_product)
@@ -137,26 +120,7 @@ def update_product(
                 detail="Product with this slug already exists"
             )
     
-    # Upload main image to Cloudinary if it's base64 (fallback - frontend should upload directly)
-    if product_data.image_url and is_base64_image(product_data.image_url):
-        # Delete old image if it exists and is a Cloudinary URL
-        if product.image_url and is_cloudinary_url(product.image_url):
-            delete_image(product.image_url)
-        product_data.image_url = upload_image(product_data.image_url, "ecommerce/products")
-    
-    # Upload additional images to Cloudinary if they're base64 (fallback)
-    if product_data.images:
-        try:
-            images_list = json.loads(product_data.images) if isinstance(product_data.images, str) else product_data.images
-            uploaded_images = []
-            for img in images_list:
-                if is_base64_image(img):
-                    uploaded_images.append(upload_image(img, "ecommerce/products"))
-                else:
-                    uploaded_images.append(img)
-            product_data.images = json.dumps(uploaded_images)
-        except:
-            pass
+    # Image URLs come directly from frontend (already uploaded to Cloudinary)
     
     # Update product fields
     update_data = product_data.model_dump(exclude_unset=True)

@@ -48,11 +48,10 @@ Go to Vercel Dashboard → Your Backend Project → Settings → Environment Var
 ```
 DATABASE_URL=your_neon_database_url
 SECRET_KEY=rURipMLPYQThadXVjeoI4zCBf1Z3tml6
-CLOUDINARY_CLOUD_NAME=nooshdb
-CLOUDINARY_API_KEY=286975485855137
-CLOUDINARY_API_SECRET=ZtlfiZogr9pKv78uiwc9mivRhl8
-# ... other variables
+# ... other variables (MAIL_*, ADMIN_*, etc.)
 ```
+
+**Note:** Backend does NOT need Cloudinary credentials - images upload directly from frontend!
 
 After adding variables, **redeploy**!
 

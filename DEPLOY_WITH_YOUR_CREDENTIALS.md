@@ -36,10 +36,7 @@ ADMIN_PASSWORD=zain2002
 # Redis (Optional - if not using Redis, can be localhost)
 REDIS_URL=redis://localhost:6379
 
-# Cloudinary (Image Storage)
-CLOUDINARY_CLOUD_NAME=nooshdb
-CLOUDINARY_API_KEY=286975485855137
-CLOUDINARY_API_SECRET=ZtlfiZogr9pKv78uiwc9mivRhl8
+# Note: Cloudinary credentials NOT needed on backend - images upload directly from frontend!
 ```
 
 ### Frontend (Client) - Vercel Environment Variables
@@ -102,16 +99,9 @@ vercel env add DATABASE_URL production
 vercel env add SECRET_KEY production
 # Paste: rURipMLPYQThadXVjeoI4zCBf1Z3tml6
 
-vercel env add CLOUDINARY_CLOUD_NAME production
-# Paste: nooshdb
+# Note: No Cloudinary variables needed - images upload directly from frontend!
 
-vercel env add CLOUDINARY_API_KEY production
-# Paste: 286975485855137
-
-vercel env add CLOUDINARY_API_SECRET production
-# Paste: ZtlfiZogr9pKv78uiwc9mivRhl8
-
-# ... add all other variables
+# ... add all other variables (MAIL_*, ADMIN_*, etc.)
 ```
 
 ---
@@ -148,14 +138,13 @@ MAIL_PASSWORD=dfzd syyk igxl bmgb
 MAIL_FROM=syedzainali4372@gmail.com
 MAIL_PORT=587
 MAIL_SERVER=smtp.gmail.com
+
+# Note: No Cloudinary credentials needed - images upload directly from frontend!
 MAIL_FROM_NAME=Noosh Tuft
 FRONTEND_URL=http://localhost:3000
 ADMIN_EMAIL=syedzainali4372@gmail.com
 ADMIN_PASSWORD=zain2002
 REDIS_URL=redis://localhost:6379
-CLOUDINARY_CLOUD_NAME=nooshdb
-CLOUDINARY_API_KEY=286975485855137
-CLOUDINARY_API_SECRET=ZtlfiZogr9pKv78uiwc9mivRhl8
 ```
 
 **Frontend (`client/.env.local`):**
