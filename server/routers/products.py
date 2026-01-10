@@ -147,6 +147,21 @@ def delete_product(
             detail="Product not found"
         )
     
+    # Check if product is in any orders
+    from models import OrderItem
+    order_items = db.query(OrderItem).filter(OrderItem.product_id == product_id).first()
+    if order_items:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Cannot delete product that has been ordered. Consider deactivating it instead."
+        )
+    
+    # Delete associated cart items
+    from models import CartItem
+    db.query(CartItem).filter(CartItem.product_id == product_id).delete()
+    
+    # Reviews will be automatically deleted due to cascade setting
+    
     db.delete(product)
     db.commit()
     
